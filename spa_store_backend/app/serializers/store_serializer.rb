@@ -1,6 +1,6 @@
 class StoreSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :name
   has_many :vendors
   has_many :customers
 end
