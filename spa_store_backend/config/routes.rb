@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
 get '/stores' => 'stores#index'
 
+get 'vendors/:id' => 'vendors#show'
+
 end
