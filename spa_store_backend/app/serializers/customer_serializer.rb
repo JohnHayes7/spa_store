@@ -1,6 +1,6 @@
 class CustomerSerializer
   include FastJsonapi::ObjectSerializer
-  attributes 
+  attributes :name
   belongs_to :store
   has_one :cart
 end
