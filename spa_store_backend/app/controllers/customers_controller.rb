@@ -8,7 +8,6 @@ class CustomersController < ApplicationController
         c = Customer.find(params[:id])
         options = {include:[:store]}
         render json: CustomerSerializer.new(c, options)
-
     end
 
     def update
