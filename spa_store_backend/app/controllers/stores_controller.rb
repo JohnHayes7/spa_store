@@ -11,7 +11,8 @@ class StoresController < ApplicationController
 
     def show
         store = Store.find(params[:id])
-        render json: StoreSerializer.new(store)
+        options = {include:[:vendors, :customers]}
+        render json: StoreSerializer.new(store, options)
     end
 
     def edit
@@ -20,6 +21,12 @@ class StoresController < ApplicationController
 
     def destroy
 
+    end
+
+    private
+
+    def store_params
+        params.require(:store).permit(:name)
     end
 
 

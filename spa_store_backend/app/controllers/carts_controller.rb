@@ -5,6 +5,9 @@ class CartsController < ApplicationController
         end
 
         def show
+            cart = Cart.find(1)
+            options = { include: [:customer, :products]}
+            render json: CartSerializer.new(cart, options)
 
         end
 
