@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
 resources :stores
 
-get 'vendors/:id' => 'vendors#show'
+get '/vendors/:id' => 'vendors#show'
 
 resources :customers
+
+get '/products/:id' => 'products#show'
 
 end
