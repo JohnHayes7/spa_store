@@ -1,5 +1,3 @@
-let div = document.getElementById('main-div')
-div.innerText = "I'm Over Here Now"
 
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/stores/2').then(function(response){
@@ -7,10 +5,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
             
-            store = createStore(name)
+            store = createStore(name);
+            let header = document.getElementById("main-head");
             let h1 = document.createElement('h1');
-            h1.innerText = store.name
-            document.body.appendChild(h1);
+            h1.innerText = "Welcome to " + store.name;
+            header.appendChild(h1);
+           
             
         });
 } )
