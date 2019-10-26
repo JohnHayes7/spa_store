@@ -1,12 +1,15 @@
 #main-head h1{
    text-align: center;
+   margin-top: 1%;
    padding-top: 2%;
    height: 100px;
    width: 99.5%;
-   font-family: Tahoma, Geneva, Verdana, sans-serif;
+   font-family: 'Montserrat', sans-serif;
    font-weight: 200;
    font-size: 4em;
+   text-shadow: 3px 10px 10px #aaa;
    background-color: whitesmoke;
    border: burlywood 3px solid;
+   box-shadow: 0px 5px 50px #aaa;
    
 }
