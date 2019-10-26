@@ -1,6 +1,12 @@
 #main-head h1{
    text-align: center;
+   padding-top: 2%;
    height: 100px;
+   width: 99.5%;
+   font-family: Tahoma, Geneva, Verdana, sans-serif;
+   font-weight: 200;
+   font-size: 4em;
    background-color: whitesmoke;
-   border: bisque 2px solid;
+   border: burlywood 3px solid;
+   
 }
