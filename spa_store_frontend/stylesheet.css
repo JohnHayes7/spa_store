@@ -1,10 +1,15 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
 #main-head h1{
    text-align: center;
    margin-top: 1%;
+   margin-bottom: 1px;
    padding-top: 2%;
    height: 100px;
    width: 99.5%;
-   font-family: 'Montserrat', sans-serif;
+   
    font-weight: 200;
    font-size: 4em;
    text-shadow: 3px 10px 10px #aaa;
@@ -12,4 +17,25 @@
    border: burlywood 3px solid;
    box-shadow: 0px 5px 50px #aaa;
    
+}
+
+.tops{
+    display: flex;
+}
+
+#latest{
+    flex: 0 0 50%;
+    height: 300px;
+    width: 600px;
+    border: burlywood 1px solid;
+    /* box-shadow: 0px 5px 50px #aaa; */
+    
+}
+
+#top-vendors{
+    flex: 1; 
+    height: 300px;
+    width: 600px;
+    border: burlywood 1px solid;
+    /* box-shadow: 0px 5px 50px #aaa; */
 }
