@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response.json();
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
-            
+            debugger
             store = createStore(name);
             let header = document.getElementById("main-head");
             let h1 = document.createElement('h1');
