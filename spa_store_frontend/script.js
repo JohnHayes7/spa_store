@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response.json();
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
+            let vendors = json["included"].filter(event => event["type"] === "vendor")
+            store = createStore(name, vendors);
             debugger
-            store = createStore(name);
             let header = document.getElementById("main-head");
             let h1 = document.createElement('h1');
             h1.innerText = "Welcome to " + store.name;
@@ -15,13 +16,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 } )
 
-function createStore(name){
-    return new Store (name)
+function addVendors(vendors){
+    let topVs = document.getElementById('top-vendors')
+    topVs.innerText = vendors
+}
+
+function createStore(name, vendors){
+    return new Store (name, vendors)
 }
 
 
 class Store{
-    constructor(name){
+    constructor(name, vendors){
         this.name = name
+        this.vendors = vendors
     }
 }
