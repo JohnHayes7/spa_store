@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
-    productsAry.forEach(product => {
+    productsAry.forEach(product => {    
         let li = document.createElement('li');
         li.innerText = product.attributes.name
         prods.appendChild(li)
