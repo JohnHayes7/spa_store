@@ -9,4 +9,6 @@ resources :customers
 
 get '/products/:id' => 'products#show'
 
+get '/customers/:id' => 'customers#show'
+
 end
