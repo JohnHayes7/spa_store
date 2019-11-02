@@ -21,8 +21,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response.json();
     }).then(function(json){
         let custName = json.data.attributes.name
+        let customer = createCustonmer(custName)
         let welcomeMess = document.getElementById('welcome')
-        welcomeMess.innerText = "Welome, " + custName
+        welcomeMess.innerText = "Welome, " + customer.name
 
     });
 } )
@@ -53,11 +54,21 @@ function createStore(name, vendors, products){
     return new Store (name, vendors, products)
 }
 
+function createCustonmer(name){
+    return new Customer(name)
+}
+
 
 class Store{
     constructor(name, vendors, products){
         this.name = name
         this.vendors = vendors
         this.products = products
+    }
+}
+
+class Customer{
+    constructor(name){
+        this.name = name
     }
 }
