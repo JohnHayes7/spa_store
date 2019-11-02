@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             addProducts(store.products)
             
         });
+
+    fetch('http://localhost:3000/customers/1').then(function(response){
+        return response.json();
+    }).then(function(json){
+        let custName = json.data.attributes.name
+        let welcomeMess = document.getElementById('welcome')
+        welcomeMess.innerText = "Welome, " + custName
+
+    });
 } )
 
 function addProducts(productsAry){
