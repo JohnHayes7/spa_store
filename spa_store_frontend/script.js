@@ -21,13 +21,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response.json();
     }).then(function(json){
         let custName = json.data.attributes.name
+        let custCart = json.included[0].relationships.products.data
         let customer = createCustonmer(custName)
         debugger
         let welcomeMess = document.getElementById('welcome')
         welcomeMess.innerText = "Welome, " + customer.name
-        
-
+        let cart = document.getElementById('cart')
+    
+        if (custCart.length === 0){
+            cart.innerText = "You currently do not have any items in your cart"
+        }   
     });
+
+    
 } )
 
 function addProducts(productsAry){
