@@ -22,8 +22,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }).then(function(json){
         let custName = json.data.attributes.name
         let customer = createCustonmer(custName)
+        debugger
         let welcomeMess = document.getElementById('welcome')
         welcomeMess.innerText = "Welome, " + customer.name
+        
 
     });
 } )

@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
 
     def show
         c = Customer.find(params[:id])
-        options = {include:[:store]}
+        options = {include:[:store, :cart]}
         render json: CustomerSerializer.new(c, options)
     end
 
