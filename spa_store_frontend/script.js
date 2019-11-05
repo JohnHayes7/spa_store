@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let products = json["included"].filter(event => event["type"] === "product")
             
             store = createStore(name, vendors, products);
+            
             let header = document.getElementById("main-head");
             let h1 = document.createElement('h1');
             h1.innerText = "Welcome to " + store.name;
@@ -22,8 +23,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }).then(function(json){
         let custName = json.data.attributes.name
         let custCart = json.included[0].relationships.products.data
-        let customer = createCustonmer(custName)
-        debugger
+        let customer = createCustonmer(custName, custCart)
+        
         let welcomeMess = document.getElementById('welcome')
         welcomeMess.innerText = "Welome, " + customer.name
         let cartList = document.getElementById('cart-list')
@@ -43,7 +44,10 @@ function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
     productsAry.forEach(product => {    
         let li = document.createElement('li');
+        let dataID = document.createAttribute('data-id')
+        dataID.value = product.id
         li.innerText = product.attributes.name
+        li.setAttributeNode(dataID)
         prods.appendChild(li)
     })
 }
@@ -54,7 +58,10 @@ function addVendors(vendorsAry){
     let topVs = document.getElementById('top-vendors-list')
     vendorsAry.forEach(vendor => {
         let li = document.createElement('li');
+        let dataID = document.createAttribute('data-id')
+        dataID.value = vendor.id
         li.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
+        li.setAttributeNode(dataID)
         topVs.appendChild(li)
     });
    
@@ -65,8 +72,8 @@ function createStore(name, vendors, products){
     return new Store (name, vendors, products)
 }
 
-function createCustonmer(name){
-    return new Customer(name)
+function createCustonmer(name, cart){
+    return new Customer(name, cart)
 }
 
 
@@ -79,7 +86,8 @@ class Store{
 }
 
 class Customer{
-    constructor(name){
+    constructor(name, cart){
         this.name = name
+        this.cart = cart
     }
 }
