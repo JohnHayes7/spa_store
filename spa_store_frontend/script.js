@@ -37,8 +37,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     let browser = document.getElementById('details')
     browser.innerText = "Please select an Item or vendor for more details"
-    
+
+   
 } )
+
+let links = document.getElementsByClassName('selectable')
+
+
+
+
 
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
@@ -47,10 +54,13 @@ function addProducts(productsAry){
         let link = document.createElement('a')
         let href = document.createAttribute('href')
         let dataID = document.createAttribute('data-id')
+        let c = document.createAttribute('class');
         dataID.value = product.id
+        c.value = "selectable"
         link.innerText = product.attributes.name
         link.setAttributeNode(dataID)
         link.setAttributeNode(href)
+        link.setAttributeNode(c)
         li.appendChild(link)
         prods.appendChild(li)
     })
@@ -65,16 +75,21 @@ function addVendors(vendorsAry){
         let link = document.createElement('a')
         let href = document.createAttribute('href')
         let dataID = document.createAttribute('data-id')
+        let c = document.createAttribute('class')
         dataID.value = vendor.id
+        c.value = "selectable"
+        
         link.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
         link.setAttributeNode(dataID)
         link.setAttributeNode(href)
+        link.setAttributeNode(c)
         li.appendChild(link)
         topVs.appendChild(li)
     });
    
     
 }
+
 
 function createStore(name, vendors, products){
     return new Store (name, vendors, products)
@@ -99,3 +114,7 @@ class Customer{
         this.cart = cart
     }
 }
+
+
+
+    
