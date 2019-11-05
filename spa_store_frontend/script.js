@@ -26,13 +26,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         debugger
         let welcomeMess = document.getElementById('welcome')
         welcomeMess.innerText = "Welome, " + customer.name
-        let cart = document.getElementById('cart')
+        let cartList = document.getElementById('cart-list')
     
         if (custCart.length === 0){
-            cart.innerText = "You currently do not have any items in your cart"
+            cartList.innerText = "Your cart is currently empty"
+            cart.appendChild(cartList)
         }   
     });
 
+    let browser = document.getElementById('details')
+    browser.innerText = "Please select an Item or vendor for more details"
     
 } )
 
