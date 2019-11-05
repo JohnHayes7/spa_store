@@ -44,10 +44,14 @@ function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
     productsAry.forEach(product => {    
         let li = document.createElement('li');
+        let link = document.createElement('a')
+        let href = document.createAttribute('href')
         let dataID = document.createAttribute('data-id')
         dataID.value = product.id
-        li.innerText = product.attributes.name
-        li.setAttributeNode(dataID)
+        link.innerText = product.attributes.name
+        link.setAttributeNode(dataID)
+        link.setAttributeNode(href)
+        li.appendChild(link)
         prods.appendChild(li)
     })
 }
@@ -58,10 +62,14 @@ function addVendors(vendorsAry){
     let topVs = document.getElementById('top-vendors-list')
     vendorsAry.forEach(vendor => {
         let li = document.createElement('li');
+        let link = document.createElement('a')
+        let href = document.createAttribute('href')
         let dataID = document.createAttribute('data-id')
         dataID.value = vendor.id
-        li.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
-        li.setAttributeNode(dataID)
+        link.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
+        link.setAttributeNode(dataID)
+        link.setAttributeNode(href)
+        li.appendChild(link)
         topVs.appendChild(li)
     });
    
