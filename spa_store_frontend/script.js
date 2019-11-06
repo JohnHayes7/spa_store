@@ -38,10 +38,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let browser = document.getElementById('details')
     browser.innerText = "Please select an Item or vendor for more details"
 
-   
+    let prodLinks = document.getElementsByClassName('prod-select')
+    let vendLinks = document.getElementsByClassName('vend-select')
+
+    for (let i = 0; i < prodLinks.length; i++){
+        (function(index) {
+            prodLinks[index].addEventListener('click', function(event){
+                event.preventDefault();
+                alert("It Worked");
+            })
+        })
+    }
+
 } )
 
-let links = document.getElementsByClassName('selectable')
+
 
 
 
@@ -56,7 +67,8 @@ function addProducts(productsAry){
         let dataID = document.createAttribute('data-id')
         let c = document.createAttribute('class');
         dataID.value = product.id
-        c.value = "selectable"
+        c.value = "prod-select"
+        href.value = "#"
         link.innerText = product.attributes.name
         link.setAttributeNode(dataID)
         link.setAttributeNode(href)
@@ -77,7 +89,7 @@ function addVendors(vendorsAry){
         let dataID = document.createAttribute('data-id')
         let c = document.createAttribute('class')
         dataID.value = vendor.id
-        c.value = "selectable"
+        c.value = "vend-select"
         
         link.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
         link.setAttributeNode(dataID)
