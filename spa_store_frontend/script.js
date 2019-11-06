@@ -58,7 +58,7 @@ function addProducts(productsAry){
         link.setAttributeNode(c)
         li.appendChild(link)
         li.addEventListener("click", function(){
-            alert("I clicked" + dataID.value)
+            alert("I clicked " + link.innerText + " #" + dataID.value)
         })
         prods.appendChild(li)
     })
@@ -82,7 +82,9 @@ function addVendors(vendorsAry){
         link.setAttributeNode(href)
         link.setAttributeNode(c)
         li.appendChild(link)
-
+        li.addEventListener("click", function(){
+            alert ("I clicked " + vendor.attributes.name + " #" + dataID.value)
+        })
         topVs.appendChild(li)
     });
    
