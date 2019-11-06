@@ -38,25 +38,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let browser = document.getElementById('details')
     browser.innerText = "Please select an Item or vendor for more details"
 
-    let prodLinks = document.getElementsByClassName('prod-select')
-    let vendLinks = document.getElementsByClassName('vend-select')
-
-    for (let i = 0; i < prodLinks.length; i++){
-        (function(index) {
-            prodLinks[index].addEventListener('click', function(event){
-                event.preventDefault();
-                alert("It Worked");
-            })
-        })
-    }
 
 } )
-
-
-
-
-
-
 
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
@@ -74,6 +57,9 @@ function addProducts(productsAry){
         link.setAttributeNode(href)
         link.setAttributeNode(c)
         li.appendChild(link)
+        li.addEventListener("click", function(){
+            alert("I clicked" + dataID.value)
+        })
         prods.appendChild(li)
     })
 }
@@ -96,6 +82,7 @@ function addVendors(vendorsAry){
         link.setAttributeNode(href)
         link.setAttributeNode(c)
         li.appendChild(link)
+
         topVs.appendChild(li)
     });
    
