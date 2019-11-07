@@ -76,7 +76,6 @@ function addVendors(vendorsAry){
         let c = document.createAttribute('class')
         dataID.value = vendor.id
         c.value = "vend-select"
-        
         link.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
         link.setAttributeNode(dataID)
         link.setAttributeNode(href)
@@ -90,7 +89,9 @@ function addVendors(vendorsAry){
                 let name = json["data"]["attributes"]["name"]
                 let tagline = json["data"]["attributes"]["tagline"]
                 let vendor = createVendor(name, tagline)
-                debugger
+                
+                let browser = document.getElementById("browse")
+                browser.innerText = vendor.name
             })
             alert ("I clicked " + vendor.attributes.name + " #" + dataID.value)
         })
