@@ -82,7 +82,16 @@ function addVendors(vendorsAry){
         link.setAttributeNode(href)
         link.setAttributeNode(c)
         li.appendChild(link)
-        li.addEventListener("click", function(){
+        li.addEventListener("click", function(e){
+            e.preventDefault()
+            fetch(`http://localhost:3000/vendors/${dataID.value}`).then(function(response){
+                return response.json()
+            }).then(function(json){
+                let name = json["data"]["attributes"]["name"]
+                let tagline = json["data"]["attributes"]["tagline"]
+                let vendor = createVendor(name, tagline)
+                debugger
+            })
             alert ("I clicked " + vendor.attributes.name + " #" + dataID.value)
         })
         topVs.appendChild(li)
@@ -98,6 +107,10 @@ function createStore(name, vendors, products){
 
 function createCustonmer(name, cart){
     return new Customer(name, cart)
+}
+
+function createVendor(name, tagline){
+    return new Vendor(name, tagline)
 }
 
 
@@ -116,6 +129,12 @@ class Customer{
     }
 }
 
+class Vendor{
+    constructor(name, tagline){
+        this.name = name
+        this.tagline = tagline
+    }
+}
 
 
     
