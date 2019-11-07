@@ -89,16 +89,29 @@ function addVendors(vendorsAry){
                 let name = json["data"]["attributes"]["name"]
                 let tagline = json["data"]["attributes"]["tagline"]
                 let vendor = createVendor(name, tagline)
-                
                 let browser = document.getElementById("browse")
-                browser.innerText = vendor.name
+                let subHead = document.createElement('span')
+                let subAtt = document.createAttribute("id")
+                
+                clearWindow(browser)
+                
+                subAtt.value = "subAtt";
+                subHead.setAttributeNode(subAtt);
+                subHead.innerText = `${vendor.name} \n ${vendor.tagline} ` 
+                browser.appendChild(subHead)
+                
+                // browser.innerText = vendor.name
             })
-            alert ("I clicked " + vendor.attributes.name + " #" + dataID.value)
+            // alert ("I clicked " + vendor.attributes.name + " #" + dataID.value)
         })
         topVs.appendChild(li)
     });
    
     
+}
+
+function clearWindow(element){
+    return element.innerText = ""
 }
 
 
