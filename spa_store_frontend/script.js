@@ -88,21 +88,25 @@ function addVendors(vendorsAry){
             }).then(function(json){
                 let name = json["data"]["attributes"]["name"]
                 let tagline = json["data"]["attributes"]["tagline"]
-                let vendor = createVendor(name, tagline)
+                let products = json["included"].filter(event => event["type"] === "product")
+                
+                let vendor = createVendor(name, tagline, products)
                 let browser = document.getElementById("browse")
-                let subHead = document.createElement('span')
+                let subHead = document.createElement('div')
                 let subAtt = document.createAttribute("id")
                 
                 clearWindow(browser)
-                
+                debugger
                 subAtt.value = "subAtt";
                 subHead.setAttributeNode(subAtt);
                 subHead.innerText = `${vendor.name} \n ${vendor.tagline} ` 
                 browser.appendChild(subHead)
+                vendorProductsList(vendor.products)
+
                 
-                // browser.innerText = vendor.name
+               
             })
-            // alert ("I clicked " + vendor.attributes.name + " #" + dataID.value)
+           
         })
         topVs.appendChild(li)
     });
@@ -114,6 +118,10 @@ function clearWindow(element){
     return element.innerText = ""
 }
 
+function vendorProductsList(products){
+    
+}
+
 
 function createStore(name, vendors, products){
     return new Store (name, vendors, products)
@@ -123,8 +131,8 @@ function createCustonmer(name, cart){
     return new Customer(name, cart)
 }
 
-function createVendor(name, tagline){
-    return new Vendor(name, tagline)
+function createVendor(name, tagline, products){
+    return new Vendor(name, tagline, products)
 }
 
 
@@ -144,9 +152,10 @@ class Customer{
 }
 
 class Vendor{
-    constructor(name, tagline){
+    constructor(name, tagline, products){
         this.name = name
         this.tagline = tagline
+        this.products = products
     }
 }
 
