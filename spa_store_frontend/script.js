@@ -42,16 +42,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
-    productsAry.forEach(product => {    
+    productsAry.forEach(p => {    
+
         let li = document.createElement('li');
         let link = document.createElement('a')
         let href = document.createAttribute('href')
         let dataID = document.createAttribute('data-id')
         let c = document.createAttribute('class');
-        dataID.value = product.id
+        dataID.value = p.id
         c.value = "prod-select"
         href.value = "#"
-        link.innerText = product.attributes.name
+        link.innerText = p.attributes.name
         link.setAttributeNode(dataID)
         link.setAttributeNode(href)
         link.setAttributeNode(c)
@@ -73,9 +74,9 @@ function addProducts(productsAry){
             detailsId.value = "details"
             details.setAttributeNode(detailsId)
             
-            browseHead.innerText = product.attributes.name
+            browseHead.innerText = p.attributes.name
             browser.appendChild(browseHead)
-            details.innerText = `${product.attributes.description} \n Price: $${product.attributes.price}`
+            details.innerText = `${p.attributes.description} \n Price: $${p.attributes.price}`
             browser.appendChild(details)
             
 
