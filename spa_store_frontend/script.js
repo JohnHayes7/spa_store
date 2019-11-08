@@ -42,8 +42,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
-    productsAry.forEach(p => {    
+    productsAry.forEach(p => { 
+        let pId = p.id   
+        let pName = p.attributes.name;
+        let pDescription = p.attributes.description
+        let pPrice = p.attributes.price;
 
+        let product = createProduct(pId, pName, pDescription, pPrice);
+        debugger
         let li = document.createElement('li');
         let link = document.createElement('a')
         let href = document.createAttribute('href')
@@ -135,9 +141,6 @@ function addVendors(vendorsAry){
     
 }
 
-function clearWindow(element){
-    return element.innerText = ""
-}
 
 function vendorProductsList(products){
     let browser = document.getElementById('browse');
@@ -161,6 +164,9 @@ function vendorProductsList(products){
     })
 }
 
+function clearWindow(element){
+    return element.innerText = ""
+}
 
 function createStore(name, vendors, products){
     return new Store (name, vendors, products)
@@ -172,6 +178,10 @@ function createCustonmer(name, cart){
 
 function createVendor(name, tagline, products){
     return new Vendor(name, tagline, products)
+}
+
+function createProduct(id, name, description, price){
+    return new Product(id, name, description, price);
 }
 
 
@@ -195,6 +205,15 @@ class Vendor{
         this.name = name
         this.tagline = tagline
         this.products = products
+    }
+}
+
+class Product{
+    constructor(id, name, description, price){
+        this.id = id
+        this.name = name;
+        this.description = description
+        this.price = price
     }
 }
 
