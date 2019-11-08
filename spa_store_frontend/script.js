@@ -49,20 +49,26 @@ function addProducts(productsAry){
         let pPrice = p.attributes.price;
 
         let product = createProduct(pId, pName, pDescription, pPrice);
-        debugger
+        
+        // Start first refactor here? createDetailElements(product)
         let li = document.createElement('li');
         let link = document.createElement('a')
         let href = document.createAttribute('href')
         let dataID = document.createAttribute('data-id')
         let c = document.createAttribute('class');
-        dataID.value = p.id
+
+        dataID.value = product.id
+
         c.value = "prod-select"
         href.value = "#"
-        link.innerText = p.attributes.name
+        link.innerText = product.name
         link.setAttributeNode(dataID)
         link.setAttributeNode(href)
         link.setAttributeNode(c)
         li.appendChild(link)
+        // End first refactor here?
+        
+        // Start second refactor here.  addClick(li) 
         li.addEventListener("click", function(e){
             e.preventDefault()
             let browser = document.getElementById('browse');
@@ -80,9 +86,9 @@ function addProducts(productsAry){
             detailsId.value = "details"
             details.setAttributeNode(detailsId)
             
-            browseHead.innerText = p.attributes.name
+            browseHead.innerText = product.name
             browser.appendChild(browseHead)
-            details.innerText = `${p.attributes.description} \n Price: $${p.attributes.price}`
+            details.innerText = `${product.description} \n Price: $${product.price}`
             browser.appendChild(details)
             
 
@@ -90,6 +96,7 @@ function addProducts(productsAry){
 
             // alert("I clicked " + link.innerText + " #" + dataID.value)
         })
+        // End second refactor here
         prods.appendChild(li)
     })
 }
