@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
+   
     productsAry.forEach(p => { 
         let pId = p.id   
         let pName = p.attributes.name;
@@ -58,48 +59,15 @@ function addProducts(productsAry){
 
 
 function addVendors(vendorsAry){
-    let topVs = document.getElementById('top-vendors-list')
-    vendorsAry.forEach(vendor => {
-        let li = document.createElement('li');
-        let link = document.createElement('a')
-        let href = document.createAttribute('href')
-        let dataID = document.createAttribute('data-id')
-        let c = document.createAttribute('class')
-        dataID.value = vendor.id
-        c.value = "vend-select"
-        link.innerText = vendor.attributes.name + " - "  + vendor.attributes.tagline
-        link.setAttributeNode(dataID)
-        link.setAttributeNode(href)
-        link.setAttributeNode(c)
-        li.appendChild(link)
-        li.addEventListener("click", function(e){
-            e.preventDefault()
-            fetch(`http://localhost:3000/vendors/${dataID.value}`).then(function(response){
-                return response.json()
-            }).then(function(json){
-                let name = json["data"]["attributes"]["name"]
-                let tagline = json["data"]["attributes"]["tagline"]
-                let products = json["included"].filter(event => event["type"] === "product")
-                
-                let vendor = createVendor(name, tagline, products)
-                let browser = document.getElementById("browse")
-                let subHead = document.createElement('div')
-                let subAtt = document.createAttribute("id")
-                
-                clearWindow(browser)
+    let topVs = document.getElementById('top-vendors-list') 
+    vendorsAry.forEach(v => {
+        let vId = v.id 
+        let vName = v.attributes.name
+        let vTagline = v.attributes.tagline
 
-                subAtt.value = "subAtt";
-                subHead.setAttributeNode(subAtt);
-                subHead.innerText = `All Products from ${vendor.name} \n ${vendor.tagline} ` 
-                browser.appendChild(subHead)
-                vendorProductsList(vendor.products)
-
-            })           
-        })
-        topVs.appendChild(li)
+        let vendor = createVendor(vId, vName, vTagline)
+        createVendorPreviewElements(vendor, topVs)
     });
-   
-    
 }
 
 
@@ -123,6 +91,7 @@ function vendorProductsList(products){
     })
 }
 
+// HELPER METHODS
 function clearWindow(element){
     return element.innerText = ""
 }
@@ -135,14 +104,16 @@ function createCustonmer(name, cart){
     return new Customer(name, cart)
 }
 
-function createVendor(name, tagline, products){
-    return new Vendor(name, tagline, products)
+function createVendor(id, name, tagline){
+    return new Vendor(id, name, tagline)
 }
 
 function createProduct(id, name, description, price){
     return new Product(id, name, description, price);
 }
 
+
+// PRODUCT FUNCTIONS
 function createProductsPreviewElements(product, parent){
     let li = document.createElement('li');
     let link = document.createElement('a')
@@ -188,9 +159,52 @@ function makeProductClickable(element, object){
     })
 }
 
+// VENDOR FUNCTIONS
+function createVendorPreviewElements(vendor, parent){
+    let li = document.createElement('li');
+    let link = document.createElement('a')
+    let href = document.createAttribute('href')
+    let dataID = document.createAttribute('data-id')
+    let c = document.createAttribute('class')
+    dataID.value = vendor.id
+    c.value = "vend-select"
+    link.innerText = vendor.name + " - "  + vendor.tagline
+    link.setAttributeNode(dataID)
+    link.setAttributeNode(href)
+    link.setAttributeNode(c)
+    li.appendChild(link)
+    makeVendorClickable(vendor, li)
+    parent.appendChild(li)
+}
+
+function makeVendorClickable(object, element){
+    element.addEventListener("click", function(e){
+         e.preventDefault()
+        fetch(`http://localhost:3000/vendors/${object.id}`).then(function(response){
+            return response.json()
+        }).then(function(json){
+            let products = json["included"].filter(event => event["type"] === "product")
+                
+            object.products = products
+            let browser = document.getElementById("browse")
+            let subHead = document.createElement('div')
+            let subAtt = document.createAttribute("id")
+                
+            clearWindow(browser)
+
+            subAtt.value = "subAtt";
+            subHead.setAttributeNode(subAtt);
+            subHead.innerText = `All Products from ${object.name} \n ${object.tagline} ` 
+            browser.appendChild(subHead)
+            vendorProductsList(object.products)
+
+        })           
+    })
+}
 
 
 
+// NEED TO MOVE THESE INTO INDEPENDENT JS 
 class Store{
     constructor(name, vendors, products){
         this.name = name
@@ -207,10 +221,11 @@ class Customer{
 }
 
 class Vendor{
-    constructor(name, tagline, products){
+    constructor(id, name, tagline){
+        this.id = id
         this.name = name
         this.tagline = tagline
-        this.products = products
+        this.products = []
     }
 }
 
