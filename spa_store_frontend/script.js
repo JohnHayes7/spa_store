@@ -1,3 +1,5 @@
+let currentCustomer = ""
+
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/stores/2').then(function(response){
         return response.json();
@@ -20,17 +22,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/customers/1').then(function(response){
         return response.json();
     }).then(function(json){
+        let custId = json.id
         let custName = json.data.attributes.name
-        let custCart = json.included[0].relationships.products.data
-        let customer = createCustonmer(custName, custCart)
+        let cartId = json.included[0].id
+        let cartCustId = custId
+        let cartProds = json.included[0].relationships.products.data
+        
+        let cart = createCart(cartId, cartCustId, cartProds)
+    
+        currentCustomer = createCustonmer(custName, cart)
         
         let welcomeMess = document.getElementById('welcome')
-        welcomeMess.innerText = "Welome, " + customer.name
+        welcomeMess.innerText = "Welome, " + currentCustomer.name
+        let cartDiv = document.getElementById('cart')
         let cartList = document.getElementById('cart-list')
     
-        if (custCart.length === 0){
+        if (cart.products.length === 0){
             cartList.innerText = "Your cart is currently empty"
-            cart.appendChild(cartList)
+            cartDiv.appendChild(cartList)
         }   
     });
 
@@ -97,19 +106,23 @@ function clearWindow(element){
 }
 
 function createStore(name, vendors, products){
-    return new Store (name, vendors, products)
+    return new Store (name, vendors, products);
 }
 
 function createCustonmer(name, cart){
-    return new Customer(name, cart)
+    return new Customer(name, cart);
 }
 
 function createVendor(id, name, tagline){
-    return new Vendor(id, name, tagline)
+    return new Vendor(id, name, tagline);
 }
 
 function createProduct(id, name, description, price){
     return new Product(id, name, description, price);
+}
+
+function createCart(id, customer_id, products){
+    return new Cart(id, customer_id, products);
 }
 
 
@@ -150,7 +163,9 @@ function productDetailsDisplay(object){
     let browseHeadId = document.createAttribute('id');
     let details = document.createElement('div')
     let detailsId = document.createAttribute('id')
-
+    let btn = document.createElement('button');
+    let addBtn = document.createAttribute('id')
+    
     browseHeadId.value = "subAtt"
     browseHead.setAttributeNode(browseHeadId)
        
@@ -160,7 +175,23 @@ function productDetailsDisplay(object){
     browseHead.innerText = object.name
     browser.appendChild(browseHead)
     details.innerText = `${object.description} \n Price: $${object.price}`
+
+    
+    addBtn.value = "add-button"
+    btn.setAttributeNode(addBtn)
+    btn.innerText = "Add to Cart"
+    
+
     browser.appendChild(details)
+    browser.appendChild(btn)
+
+    btn.addEventListener('click', function(){
+        debugger
+        let cart = document.getElementById('cart')
+    })
+
+    
+
 }
 
 // VENDOR HELPER FUNCTIONS
@@ -243,6 +274,14 @@ class Product{
         this.name = name;
         this.description = description
         this.price = price
+    }
+}
+
+class Cart{
+    constructor(id, customer_id, products){
+        this.id = id
+        this.customer_id = customer_id
+        this.products = products
     }
 }
 
