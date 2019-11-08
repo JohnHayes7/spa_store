@@ -57,8 +57,19 @@ function addProducts(productsAry){
         link.setAttributeNode(href)
         link.setAttributeNode(c)
         li.appendChild(link)
-        li.addEventListener("click", function(){
-            alert("I clicked " + link.innerText + " #" + dataID.value)
+        li.addEventListener("click", function(e){
+            e.preventDefault()
+            let browser = document.getElementById('browse');
+            clearWindow(browser);
+            let subHead = document.createElement('div')
+            let attId = document.createAttribute('id');
+            attId.value = "subAtt"
+            subHead.setAttributeNode(attId)
+            subHead.innerText = product.attributes.name
+            browser.appendChild(subHead)
+            
+
+            // alert("I clicked " + link.innerText + " #" + dataID.value)
         })
         prods.appendChild(li)
     })
@@ -103,10 +114,7 @@ function addVendors(vendorsAry){
                 browser.appendChild(subHead)
                 vendorProductsList(vendor.products)
 
-                
-               
-            })
-           
+            })           
         })
         topVs.appendChild(li)
     });
