@@ -99,7 +99,7 @@ function addVendors(vendorsAry){
 
                 subAtt.value = "subAtt";
                 subHead.setAttributeNode(subAtt);
-                subHead.innerText = `${vendor.name} \n ${vendor.tagline} ` 
+                subHead.innerText = `All Products from ${vendor.name} \n ${vendor.tagline} ` 
                 browser.appendChild(subHead)
                 vendorProductsList(vendor.products)
 
@@ -125,7 +125,6 @@ function vendorProductsList(products){
     divAttr.value = "details";
     detailsDiv.setAttributeNode(divAttr);
     let ul = document.createElement('ul');
-    ul.innerText = "All Products"
     Array.from(products).forEach(product => {
         let li = document.createElement('li');
         let link = document.createElement('a');
@@ -133,13 +132,14 @@ function vendorProductsList(products){
         href.value = "#"
         link.setAttributeNode(href)
         link.innerText = product.attributes.name
-        li,appendChild(link)
+        li.appendChild(link)
         // li.innerText = product.attributes.name;
         ul.appendChild(li)
+        detailsDiv.appendChild(ul)
+        browser.appendChild(detailsDiv);
     })
 
-    detailsDiv.appendChild(ul)
-    browser.appendChild(detailsDiv);
+   
 
 }
 
