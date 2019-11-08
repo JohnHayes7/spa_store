@@ -52,12 +52,6 @@ function addProducts(productsAry){
         
         createProductsPreviewElements(product, prods)
         
-        // End first refactor here?
-
-        
-        // 
-        // End second refactor here
-        
     })
 }
 
@@ -116,16 +110,14 @@ function vendorProductsList(products){
     divAttr.value = "details";
     detailsDiv.setAttributeNode(divAttr);
     let ul = document.createElement('ul');
-    Array.from(products).forEach(product => {
-        let li = document.createElement('li');
-        let link = document.createElement('a');
-        let href = document.createAttribute('href');
-        href.value = "#"
-        link.setAttributeNode(href)
-        link.innerText = product.attributes.name
-        li.appendChild(link)
-        // li.innerText = product.attributes.name;
-        ul.appendChild(li)
+    Array.from(products).forEach(p => {
+        let pId = p.attributes.id;
+        let pName = p.attributes.name;
+        let pDescription = p.attributes.description;
+        let pPrice = p.attributes.price;
+
+        let product = createProduct(pId, pName, pDescription, pPrice)
+        createProductsPreviewElements(product, ul)
         detailsDiv.appendChild(ul)
         browser.appendChild(detailsDiv);
     })
@@ -193,13 +185,10 @@ function makeProductClickable(element, object){
         browser.appendChild(browseHead)
         details.innerText = `${object.description} \n Price: $${object.price}`
         browser.appendChild(details)
-            
-
-            
-
-       // alert("I clicked " + link.innerText + " #" + dataID.value)
     })
 }
+
+
 
 
 class Store{
