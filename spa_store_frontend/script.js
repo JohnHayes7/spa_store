@@ -50,54 +50,14 @@ function addProducts(productsAry){
 
         let product = createProduct(pId, pName, pDescription, pPrice);
         
-        // Start first refactor here? createDetailElements(product)
-        let li = document.createElement('li');
-        let link = document.createElement('a')
-        let href = document.createAttribute('href')
-        let dataID = document.createAttribute('data-id')
-        let c = document.createAttribute('class');
-
-        dataID.value = product.id
-
-        c.value = "prod-select"
-        href.value = "#"
-        link.innerText = product.name
-        link.setAttributeNode(dataID)
-        link.setAttributeNode(href)
-        link.setAttributeNode(c)
-        li.appendChild(link)
-        // End first refactor here?
+        createProductsPreviewElements(product, prods)
         
-        // Start second refactor here.  addClick(li) 
-        li.addEventListener("click", function(e){
-            e.preventDefault()
-            let browser = document.getElementById('browse');
-            
-            clearWindow(browser);
+        // End first refactor here?
 
-            let browseHead = document.createElement('div')
-            let browseHeadId = document.createAttribute('id');
-            let details = document.createElement('div')
-            let detailsId = document.createAttribute('id')
-
-            browseHeadId.value = "subAtt"
-            browseHead.setAttributeNode(browseHeadId)
-           
-            detailsId.value = "details"
-            details.setAttributeNode(detailsId)
-            
-            browseHead.innerText = product.name
-            browser.appendChild(browseHead)
-            details.innerText = `${product.description} \n Price: $${product.price}`
-            browser.appendChild(details)
-            
-
-            
-
-            // alert("I clicked " + link.innerText + " #" + dataID.value)
-        })
+        
+        // 
         // End second refactor here
-        prods.appendChild(li)
+        
     })
 }
 
@@ -189,6 +149,56 @@ function createVendor(name, tagline, products){
 
 function createProduct(id, name, description, price){
     return new Product(id, name, description, price);
+}
+
+function createProductsPreviewElements(product, parent){
+    let li = document.createElement('li');
+    let link = document.createElement('a')
+    let href = document.createAttribute('href')
+    let dataID = document.createAttribute('data-id')
+    let c = document.createAttribute('class');
+
+    dataID.value = product.id
+
+    c.value = "prod-select"
+    href.value = "#"
+    link.innerText = product.name
+    link.setAttributeNode(dataID)
+    link.setAttributeNode(href)
+    link.setAttributeNode(c)
+    li.appendChild(link)
+    makeProductClickable(li, product)
+    parent.appendChild(li)
+}
+
+function makeProductClickable(element, object){
+    element.addEventListener("click", function(e){
+        e.preventDefault()
+        let browser = document.getElementById('browse');
+            
+        clearWindow(browser);
+
+        let browseHead = document.createElement('div')
+        let browseHeadId = document.createAttribute('id');
+        let details = document.createElement('div')
+        let detailsId = document.createAttribute('id')
+
+        browseHeadId.value = "subAtt"
+        browseHead.setAttributeNode(browseHeadId)
+           
+        detailsId.value = "details"
+        details.setAttributeNode(detailsId)
+            
+        browseHead.innerText = object.name
+        browser.appendChild(browseHead)
+        details.innerText = `${object.description} \n Price: $${object.price}`
+        browser.appendChild(details)
+            
+
+            
+
+       // alert("I clicked " + link.innerText + " #" + dataID.value)
+    })
 }
 
 
