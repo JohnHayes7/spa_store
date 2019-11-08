@@ -96,7 +96,7 @@ function addVendors(vendorsAry){
                 let subAtt = document.createAttribute("id")
                 
                 clearWindow(browser)
-                debugger
+
                 subAtt.value = "subAtt";
                 subHead.setAttributeNode(subAtt);
                 subHead.innerText = `${vendor.name} \n ${vendor.tagline} ` 
@@ -119,7 +119,28 @@ function clearWindow(element){
 }
 
 function vendorProductsList(products){
-    
+    let browser = document.getElementById('browse');
+    let detailsDiv = document.createElement("div");
+    let divAttr = document.createAttribute("id");
+    divAttr.value = "details";
+    detailsDiv.setAttributeNode(divAttr);
+    let ul = document.createElement('ul');
+    ul.innerText = "All Products"
+    Array.from(products).forEach(product => {
+        let li = document.createElement('li');
+        let link = document.createElement('a');
+        let href = document.createAttribute('href');
+        href.value = "#"
+        link.setAttributeNode(href)
+        link.innerText = product.attributes.name
+        li,appendChild(link)
+        // li.innerText = product.attributes.name;
+        ul.appendChild(li)
+    })
+
+    detailsDiv.appendChild(ul)
+    browser.appendChild(detailsDiv);
+
 }
 
 
