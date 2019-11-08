@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/stores/2').then(function(response){
         return response.json();
@@ -60,13 +59,26 @@ function addProducts(productsAry){
         li.addEventListener("click", function(e){
             e.preventDefault()
             let browser = document.getElementById('browse');
+            
             clearWindow(browser);
-            let subHead = document.createElement('div')
-            let attId = document.createAttribute('id');
-            attId.value = "subAtt"
-            subHead.setAttributeNode(attId)
-            subHead.innerText = product.attributes.name
-            browser.appendChild(subHead)
+
+            let browseHead = document.createElement('div')
+            let browseHeadId = document.createAttribute('id');
+            let details = document.createElement('div')
+            let detailsId = document.createAttribute('id')
+
+            browseHeadId.value = "subAtt"
+            browseHead.setAttributeNode(browseHeadId)
+           
+            detailsId.value = "details"
+            details.setAttributeNode(detailsId)
+            
+            browseHead.innerText = product.attributes.name
+            browser.appendChild(browseHead)
+            details.innerText = `${product.attributes.description} \n Price: $${product.attributes.price}`
+            browser.appendChild(details)
+            
+
             
 
             // alert("I clicked " + link.innerText + " #" + dataID.value)
@@ -146,9 +158,6 @@ function vendorProductsList(products){
         detailsDiv.appendChild(ul)
         browser.appendChild(detailsDiv);
     })
-
-   
-
 }
 
 
