@@ -91,7 +91,7 @@ function vendorProductsList(products){
     })
 }
 
-// HELPER METHODS
+// GENERAL HELPER METHODS
 function clearWindow(element){
     return element.innerText = ""
 }
@@ -113,7 +113,7 @@ function createProduct(id, name, description, price){
 }
 
 
-// PRODUCT FUNCTIONS
+// PRODUCT HELPER FUNCTIONS
 function createProductsPreviewElements(product, parent){
     let li = document.createElement('li');
     let link = document.createElement('a')
@@ -137,29 +137,33 @@ function createProductsPreviewElements(product, parent){
 function makeProductClickable(element, object){
     element.addEventListener("click", function(e){
         e.preventDefault()
-        let browser = document.getElementById('browse');
-            
-        clearWindow(browser);
-
-        let browseHead = document.createElement('div')
-        let browseHeadId = document.createAttribute('id');
-        let details = document.createElement('div')
-        let detailsId = document.createAttribute('id')
-
-        browseHeadId.value = "subAtt"
-        browseHead.setAttributeNode(browseHeadId)
-           
-        detailsId.value = "details"
-        details.setAttributeNode(detailsId)
-            
-        browseHead.innerText = object.name
-        browser.appendChild(browseHead)
-        details.innerText = `${object.description} \n Price: $${object.price}`
-        browser.appendChild(details)
+        productDetailsDisplay(object)
     })
 }
 
-// VENDOR FUNCTIONS
+function productDetailsDisplay(object){
+    let browser = document.getElementById('browse');
+            
+    clearWindow(browser);
+
+    let browseHead = document.createElement('div')
+    let browseHeadId = document.createAttribute('id');
+    let details = document.createElement('div')
+    let detailsId = document.createAttribute('id')
+
+    browseHeadId.value = "subAtt"
+    browseHead.setAttributeNode(browseHeadId)
+       
+    detailsId.value = "details"
+    details.setAttributeNode(detailsId)
+        
+    browseHead.innerText = object.name
+    browser.appendChild(browseHead)
+    details.innerText = `${object.description} \n Price: $${object.price}`
+    browser.appendChild(details)
+}
+
+// VENDOR HELPER FUNCTIONS
 function createVendorPreviewElements(vendor, parent){
     let li = document.createElement('li');
     let link = document.createElement('a')
@@ -180,26 +184,30 @@ function createVendorPreviewElements(vendor, parent){
 function makeVendorClickable(object, element){
     element.addEventListener("click", function(e){
          e.preventDefault()
-        fetch(`http://localhost:3000/vendors/${object.id}`).then(function(response){
-            return response.json()
-        }).then(function(json){
-            let products = json["included"].filter(event => event["type"] === "product")
-                
-            object.products = products
-            let browser = document.getElementById("browse")
-            let subHead = document.createElement('div')
-            let subAtt = document.createAttribute("id")
-                
-            clearWindow(browser)
-
-            subAtt.value = "subAtt";
-            subHead.setAttributeNode(subAtt);
-            subHead.innerText = `All Products from ${object.name} \n ${object.tagline} ` 
-            browser.appendChild(subHead)
-            vendorProductsList(object.products)
-
-        })           
+         fetchVendors(object)       
     })
+}
+
+function fetchVendors(object){
+    fetch(`http://localhost:3000/vendors/${object.id}`).then(function(response){
+        return response.json()
+    }).then(function(json){
+        let products = json["included"].filter(event => event["type"] === "product")
+            
+        object.products = products
+        let browser = document.getElementById("browse")
+        let subHead = document.createElement('div')
+        let subAtt = document.createAttribute("id")
+            
+        clearWindow(browser)
+
+        subAtt.value = "subAtt";
+        subHead.setAttributeNode(subAtt);
+        subHead.innerText = `All Products from ${object.name} \n ${object.tagline} ` 
+        browser.appendChild(subHead)
+        vendorProductsList(object.products)
+
+    })   
 }
 
 
