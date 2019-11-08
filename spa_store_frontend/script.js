@@ -22,13 +22,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/customers/1').then(function(response){
         return response.json();
     }).then(function(json){
-        let custId = json.id
+        let custId = json.data.id
         let custName = json.data.attributes.name
         let cartId = json.included[0].id
-        let cartCustId = custId
         let cartProds = json.included[0].relationships.products.data
         
-        let cart = createCart(cartId, cartCustId, cartProds)
+        let cart = createCart(cartId, custId, cartProds)
     
         currentCustomer = createCustonmer(custName, cart)
         
@@ -186,8 +185,8 @@ function productDetailsDisplay(object){
     browser.appendChild(btn)
 
     btn.addEventListener('click', function(){
-        debugger
-        let cart = document.getElementById('cart')
+        let cartDiv = document.getElementById('cart')
+        console.log(currentCustomer)
     })
 
     
