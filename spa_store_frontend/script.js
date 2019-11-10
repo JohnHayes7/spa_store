@@ -187,8 +187,8 @@ function productDetailsDisplay(object){
     btn.addEventListener('click', function(){
         let cartDiv = document.getElementById('cart')
 
-        fetch(`http://localhost:3000/customers/${currentCustomer.id}/cart/${currentCustomer.cart.id}/edit`,{
-            method:'PATCH',
+        fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
+            method: 'PATCH',
             body: JSON.stringify({
                 cart_id: currentCustomer.cart.id,
                 product_id: object.id,
@@ -196,7 +196,7 @@ function productDetailsDisplay(object){
             }),
             headers: {
                 "Content-type": "application/json", 
-                "Accept": 'application/json'
+                "Accept": 'application/json'    
             }
         }).then(response => response.json())
         .then(json => console.log(json))

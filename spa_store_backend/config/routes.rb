@@ -6,7 +6,7 @@ resources :stores
 get '/vendors/:id' => 'vendors#show'
 
 resources :customers, only:[:show] do 
-  resources :carts, only:[:edit, :destroy, :show]
+  resources :carts, only:[:update, :destroy, :show]
 end
 
 get '/products/:id' => 'products#show'

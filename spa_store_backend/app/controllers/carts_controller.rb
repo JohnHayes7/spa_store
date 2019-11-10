@@ -11,7 +11,7 @@ class CartsController < ApplicationController
 
         end
 
-        def edit
+        def update
             raise params.inspect
 
         end
