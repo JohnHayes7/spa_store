@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         
         let cart = createCart(cartId, custId, cartProds)
     
-        currentCustomer = createCustonmer(custName, cart)
+        currentCustomer = createCustonmer(custId, custName, cart)
         
         let welcomeMess = document.getElementById('welcome')
         welcomeMess.innerText = "Welome, " + currentCustomer.name
@@ -108,8 +108,8 @@ function createStore(name, vendors, products){
     return new Store (name, vendors, products);
 }
 
-function createCustonmer(name, cart){
-    return new Customer(name, cart);
+function createCustonmer(id, name, cart){
+    return new Customer(id, name, cart);
 }
 
 function createVendor(id, name, tagline){
@@ -186,8 +186,21 @@ function productDetailsDisplay(object){
 
     btn.addEventListener('click', function(){
         let cartDiv = document.getElementById('cart')
-        console.log(currentCustomer)
-        
+
+        fetch(`http://localhost:3000/customers/${currentCustomer.id}/cart/${currentCustomer.cart.id}/edit`,{
+            method:'PATCH',
+            body: JSON.stringify({
+                cart_id: currentCustomer.cart.id,
+                product_id: object.id,
+                completed: true
+            }),
+            headers: {
+                "Content-type": "application/json", 
+                "Accept": 'application/json'
+            }
+        }).then(response => response.json())
+        .then(json => console.log(json))
+
     })
 
     
@@ -253,7 +266,8 @@ class Store{
 }
 
 class Customer{
-    constructor(name, cart){
+    constructor(id, name, cart){
+        this.id = id
         this.name = name
         this.cart = cart
     }
