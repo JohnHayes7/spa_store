@@ -187,6 +187,7 @@ function productDetailsDisplay(object){
     btn.addEventListener('click', function(){
         let cartDiv = document.getElementById('cart')
         console.log(currentCustomer)
+        
     })
 
     

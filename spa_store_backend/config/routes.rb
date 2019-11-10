@@ -5,10 +5,12 @@ resources :stores
 
 get '/vendors/:id' => 'vendors#show'
 
-resources :customers
+resources :customers, only:[:show] do 
+  resources :carts, only:[:edit, :destroy, :show]
+end
 
 get '/products/:id' => 'products#show'
 
-get '/customers/:id' => 'customers#show'
+
 
 end
