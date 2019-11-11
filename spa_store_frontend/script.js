@@ -199,7 +199,17 @@ function productDetailsDisplay(object){
                 "Accept": 'application/json'    
             }
         }).then(response => response.json())
-        .then(json => console.log(json))
+        .then(function(json){
+            let cartList = document.getElementById('cart-list')
+            let ul = document.createElement('ul')
+            let cartProducts = json.included.filter(event => event["type"] === "product")
+            cartProducts.forEach(product => {
+                let li = document.createElement('li');
+                li.innerText = `${product.attributes.name} - $${product.attributes.price}`;
+                ul.appendChild(li);
+            })
+            cartList.appendChild(ul);
+        })
 
     })
 
