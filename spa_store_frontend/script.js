@@ -206,7 +206,8 @@ function productDetailsDisplay(object){
             }
         }).then(response => response.json())
         .then(function(json){
-            debugger
+            // let cartProducts = json.included.filter(event => event["type"] === "product")
+            
             cartDisplay(json)
         })
 
