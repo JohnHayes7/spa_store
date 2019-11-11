@@ -12,7 +12,7 @@ class CartsController < ApplicationController
         end
 
         def update
-            raise params.inspect
+            binding.pry
 
         end
 
