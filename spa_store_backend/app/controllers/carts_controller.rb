@@ -16,7 +16,7 @@ class CartsController < ApplicationController
             product = Product.find(params[:product_id])
             if !cart.products.include?(product)
                 cart.products << product
-
+                cart.save
             end
             options = {include: [:customer, :products]}
             render json: CartSerializer.new(cart, options)

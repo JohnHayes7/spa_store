@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (cart.products.length === 0){
             cartList.innerText = "Your cart is currently empty"
             cartDiv.appendChild(cartList)
-        }   
+        }else{
+            debugger
+            cartDisplay(json)
+        }  
     });
 
     let browser = document.getElementById('details')
@@ -200,15 +203,7 @@ function productDetailsDisplay(object){
             }
         }).then(response => response.json())
         .then(function(json){
-            let cartList = document.getElementById('cart-list')
-            let ul = document.createElement('ul')
-            let cartProducts = json.included.filter(event => event["type"] === "product")
-            cartProducts.forEach(product => {
-                let li = document.createElement('li');
-                li.innerText = `${product.attributes.name} - $${product.attributes.price}`;
-                ul.appendChild(li);
-            })
-            cartList.appendChild(ul);
+            cartDisplay(json)
         })
 
     })
@@ -216,6 +211,8 @@ function productDetailsDisplay(object){
     
 
 }
+
+
 
 // VENDOR HELPER FUNCTIONS
 function createVendorPreviewElements(vendor, parent){
@@ -262,6 +259,20 @@ function fetchVendors(object){
         vendorProductsList(object.products)
 
     })   
+}
+
+// CART HELPERS
+function cartDisplay(json){
+    let cartList = document.getElementById('cart-list')
+    cartList.innerText = ""
+    let ul = document.createElement('ul')
+    let cartProducts = json.included.filter(event => event["type"] === "product")
+    cartProducts.forEach(product => {
+        let li = document.createElement('li');
+        li.innerText = `${product.attributes.name} - $${product.attributes.price}`;
+        ul.appendChild(li);
+    })
+    cartList.appendChild(ul);
 }
 
 
