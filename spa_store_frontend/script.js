@@ -274,7 +274,7 @@ function cartDisplay(json){
     let cartProducts = json.included.filter(event => event["type"] === "product")
     cartProducts.forEach(product => {
         let li = document.createElement('li');
-        li.innerText = `${product.attributes.name} - $${product.attributes.price}`;
+        li.innerText = product.attributes.name + " " +"$" + product.attributes.price;
         ul.appendChild(li);
     })
     cartList.appendChild(ul);

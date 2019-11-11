@@ -62,3 +62,15 @@ body{
     font-weight: 600; 
 }
 
+#cart-list{
+    flex: 0 0 30%;
+}
+
+#cart-list li{
+    flex: 1;
+}
+
+#cart-prod-price{
+    flex: 2;
+}
+
