@@ -22,13 +22,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/customers/1').then(function(response){
         return response.json();
     }).then(function(json){
+        
         let custId = json.data.id
         let custName = json.data.attributes.name
         let cartId = json.included[0].id
         let cartProds = json.included[0].relationships.products.data
         
         let cart = createCart(cartId, custId, cartProds)
-    
+        
         currentCustomer = createCustonmer(custId, custName, cart)
         
         let welcomeMess = document.getElementById('welcome')
@@ -40,8 +41,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             cartList.innerText = "Your cart is currently empty"
             cartDiv.appendChild(cartList)
         }else{
-            debugger
-            cartDisplay(json)
+            fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`).then(response => response.json())
+            .then(function(json){
+                cartDisplay(json)
+            })
         }  
     });
 
@@ -203,6 +206,7 @@ function productDetailsDisplay(object){
             }
         }).then(response => response.json())
         .then(function(json){
+            debugger
             cartDisplay(json)
         })
 
@@ -265,6 +269,7 @@ function fetchVendors(object){
 function cartDisplay(json){
     let cartList = document.getElementById('cart-list')
     cartList.innerText = ""
+   
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
     cartProducts.forEach(product => {
