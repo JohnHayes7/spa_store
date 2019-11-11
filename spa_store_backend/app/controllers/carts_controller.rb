@@ -12,8 +12,14 @@ class CartsController < ApplicationController
         end
 
         def update
-            binding.pry
+            cart = Cart.find(params[:cart_id])
+            product = Product.find(params[:product_id])
+            if !cart.products.include?(product)
+                cart.products << product
 
+            end
+            options = {include: [:customer, :products]}
+            render json: CartSerializer.new(cart, options)
         end
 
         def delete
