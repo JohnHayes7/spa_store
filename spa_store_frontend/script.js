@@ -277,8 +277,12 @@ function cartDisplay(json){
         let li = document.createElement('li');
         li.innerText = product.attributes.name + " " +"$" + product.attributes.price;
         ul.appendChild(li);
+
+
     })
     cartList.appendChild(ul);
+    let checkout = document.getElementById('checkout')
+    checkout.innerText = "CHECKOUT"
 }
 
 
