@@ -11,7 +11,7 @@ body{
    width: 99.5%;
    
    font-weight: 200;
-   font-size: 4em;
+   font-size: 3em;
    text-shadow: 3px 10px 10px #aaa;
    background-color: whitesmoke;
    border: burlywood 3px solid;
@@ -62,15 +62,7 @@ body{
     font-weight: 600; 
 }
 
-#cart-list{
-    flex: 0 0 30%;
-}
-
-#cart-list li{
-    flex: 1;
-}
-
-#cart-prod-price{
-    flex: 2;
+#delete-link{
+    font-size: .5em;
 }
 

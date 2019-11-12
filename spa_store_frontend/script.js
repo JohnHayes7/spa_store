@@ -206,8 +206,9 @@ function productDetailsDisplay(object){
             }
         }).then(response => response.json())
         .then(function(json){
+           
             // let cartProducts = json.included.filter(event => event["type"] === "product")
-            
+
             cartDisplay(json)
         })
 
@@ -273,10 +274,22 @@ function cartDisplay(json){
    
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
+    
     cartProducts.forEach(product => {
         let li = document.createElement('li');
+        let deleteLink = document.createElement('a')
+        let deleteLinkId = document.createAttribute('id')
+        let deleteLinkHref = document.createAttribute('href')
+        deleteLinkHref.value = "#"
+        deleteLinkId.value = "delete-link"
+        deleteLink.setAttributeNode(deleteLinkId)
+        deleteLink.setAttributeNode(deleteLinkHref)
+        deleteLink.innerText = " Remove From Cart"
         li.innerText = product.attributes.name + " " +"$" + product.attributes.price;
+        li.appendChild(deleteLink)
         ul.appendChild(li);
+        
+
 
 
     })
