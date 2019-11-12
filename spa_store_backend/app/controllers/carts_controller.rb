@@ -22,6 +22,10 @@ class CartsController < ApplicationController
             render json: CartSerializer.new(cart, options)
         end
 
+        def removeProduct
+
+        end
+
         def delete
 
         end

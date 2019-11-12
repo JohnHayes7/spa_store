@@ -275,7 +275,15 @@ function cartDisplay(json){
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
     
-    cartProducts.forEach(product => {
+    iterateCart(cartProducts, ul)
+    cartList.appendChild(ul);
+    
+    let checkout = document.getElementById('checkout')
+    checkout.innerText = "CHECKOUT"
+}
+
+function iterateCart(array, element){
+    array.forEach(product => {
         let li = document.createElement('li');
         let deleteLink = document.createElement('a')
         let deleteLinkId = document.createAttribute('id')
@@ -287,15 +295,13 @@ function cartDisplay(json){
         deleteLink.innerText = " Remove From Cart"
         li.innerText = product.attributes.name + " " +"$" + product.attributes.price;
         li.appendChild(deleteLink)
-        ul.appendChild(li);
-        
+        element.appendChild(li);
 
-
-
+        // deleteLink.addEventListener('click', function(e){
+        //     e.preventDefault()
+        //     console.log(this)
+        // })
     })
-    cartList.appendChild(ul);
-    let checkout = document.getElementById('checkout')
-    checkout.innerText = "CHECKOUT"
 }
 
 
