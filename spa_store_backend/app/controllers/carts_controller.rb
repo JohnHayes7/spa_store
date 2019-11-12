@@ -22,7 +22,9 @@ class CartsController < ApplicationController
             render json: CartSerializer.new(cart, options)
         end
 
-        def removeProduct
+        def remove
+            raise params.inspect
+            
 
         end
 
@@ -30,8 +32,10 @@ class CartsController < ApplicationController
             cart = Cart.find(params[:cart_id])
             product = Product.find(params[:product_id])
             cart.products.delete(product)
+            cart.save
             options = {include: [:customer, :products]}
             render json: CartSerializer.new(cart, options)
+            
         end
 
 end

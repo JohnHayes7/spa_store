@@ -93,7 +93,7 @@ function vendorProductsList(products){
     detailsDiv.setAttributeNode(divAttr);
     let ul = document.createElement('ul');
     Array.from(products).forEach(p => {
-        let pId = p.attributes.id;
+        let pId = p.id;
         let pName = p.attributes.name;
         let pDescription = p.attributes.description;
         let pPrice = p.attributes.price;
@@ -192,7 +192,7 @@ function productDetailsDisplay(object){
 
     btn.addEventListener('click', function(){
         let cartDiv = document.getElementById('cart')
-
+        debugger
         fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
             method: 'PATCH',
             body: JSON.stringify({
@@ -315,7 +315,6 @@ function iterateCart(array, element){
             }).then(response => response.json())
             .then(function(json){
                cartDisplay(json)
-               
             })
         })
     })
