@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 } )
 
+
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
    
@@ -274,25 +275,28 @@ function cartDisplay(json){
    
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
-    debugger
+    
     
     iterateCart(cartProducts, ul)
     cartList.appendChild(ul);
 
+    
     let cartTotal = document.createElement('div');
     let cartTotalId = document.createAttribute('id');
     cartTotalId.value = "cart-total";
     cartTotal.setAttributeNode(cartTotalId);
-    cartTotal.innerText = "Total: $" + reduce(cartProducts, cartTotal, 0);
+    let cartTotalValue = cartProducts.reduce(function(total, product) {
+        debugger
+        return product.attributes.price + total
+    })
+    
+    cartTotal.innerText = "Total: $ " + cartTotalValue
     cartList.appendChild(cartTotal)
 
     let checkout = document.getElementById('checkout')
     checkout.innerText = "CHECKOUT"
 }
 
-function cartTotal(totalAmount, product){
-    return totalAmount + product.attributes.price
-}
 
 function iterateCart(array, element){
     array.forEach(product => {
@@ -334,7 +338,7 @@ function iterateCart(array, element){
 
 
 
-// NEED TO MOVE THESE INTO INDEPENDENT JS 
+// NEED TO MOVE THESE INTO INDEPENDENT JS FILES
 class Store{
     constructor(name, vendors, products){
         this.name = name
