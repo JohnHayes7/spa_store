@@ -301,9 +301,22 @@ function iterateCart(array, element){
         element.appendChild(li);
 
         deleteLink.addEventListener('click', function(e){
-            e.preventDefault()
-            debugger
-            console.log(this)
+            fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
+                method: 'DELETE',
+                body: JSON.stringify({
+                    cart_id: currentCustomer.cart.id,
+                    product_id: this.getAttribute('data-id'),
+                    completed: true
+                }),
+                headers: {
+                    "Content-type": "application/json", 
+                    "Accept": 'application/json'    
+                }
+            }).then(response => response.json())
+            .then(function(json){
+               cartDisplay(json)
+               
+            })
         })
     })
 }
