@@ -288,8 +288,11 @@ function iterateCart(array, element){
         let deleteLink = document.createElement('a')
         let deleteLinkId = document.createAttribute('id')
         let deleteLinkHref = document.createAttribute('href')
+        let deleteLinkData = document.createAttribute('data-id')
+        deleteLinkData.value = product.id 
         deleteLinkHref.value = "#"
         deleteLinkId.value = "delete-link"
+        deleteLink.setAttributeNode(deleteLinkData)
         deleteLink.setAttributeNode(deleteLinkId)
         deleteLink.setAttributeNode(deleteLinkHref)
         deleteLink.innerText = " Remove From Cart"
@@ -297,10 +300,11 @@ function iterateCart(array, element){
         li.appendChild(deleteLink)
         element.appendChild(li);
 
-        // deleteLink.addEventListener('click', function(e){
-        //     e.preventDefault()
-        //     console.log(this)
-        // })
+        deleteLink.addEventListener('click', function(e){
+            e.preventDefault()
+            debugger
+            console.log(this)
+        })
     })
 }
 
