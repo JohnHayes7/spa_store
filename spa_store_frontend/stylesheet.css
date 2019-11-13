@@ -41,6 +41,7 @@ body{
 }
 
 #welcome{
+    font-size: 2em;
     display: block;
     height: 50px;
 }

@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         currentCustomer = createCustonmer(custId, custName, cart)
         
         let welcomeMess = document.getElementById('welcome')
-        welcomeMess.innerText = "Welome, " + currentCustomer.name
+        welcomeMess.innerText = "Welcome, " + currentCustomer.name
         let cartDiv = document.getElementById('cart')
         let cartList = document.getElementById('cart-list')
     
@@ -292,8 +292,24 @@ function cartDisplay(json){
     cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
     cartList.appendChild(cartTotal)
 
+    let checkoutLink = document.createElement('a')
+    let checkoutHref = document.createAttribute('href')
+    checkoutHref.value = "#"
+    checkoutLink.setAttributeNode(checkoutHref)
+    
     let checkout = document.getElementById('checkout')
-    checkout.innerText = "CHECKOUT"
+    checkoutLink.innerText = "CHECKOUT"
+    checkout.appendChild(checkoutLink)
+
+    
+
+}
+
+function addCheckOut(){
+
+    if(array.length > 0){
+        
+    }
 }
 
 function getCartTotal(array){
@@ -343,48 +359,15 @@ function iterateCart(array, element){
 
 
 
-// NEED TO MOVE THESE INTO INDEPENDENT JS FILES
-class Store{
-    constructor(name, vendors, products){
-        this.name = name
-        this.vendors = vendors
-        this.products = products
-    }
-}
 
-class Customer{
-    constructor(id, name, cart){
-        this.id = id
-        this.name = name
-        this.cart = cart
-    }
-}
 
-class Vendor{
-    constructor(id, name, tagline){
-        this.id = id
-        this.name = name
-        this.tagline = tagline
-        this.products = []
-    }
-}
 
-class Product{
-    constructor(id, name, description, price){
-        this.id = id
-        this.name = name;
-        this.description = description
-        this.price = price
-    }
-}
 
-class Cart{
-    constructor(id, customer_id, products){
-        this.id = id
-        this.customer_id = customer_id
-        this.products = products
-    }
-}
+
+
+
+
+
 
 
     
