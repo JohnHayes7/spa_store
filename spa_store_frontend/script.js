@@ -275,26 +275,31 @@ function cartDisplay(json){
    
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
+    prodsPriceArray = []
+    cartProducts.forEach(product =>{
+        prodsPriceArray.push(product.attributes.price)
+    })
     
     
     iterateCart(cartProducts, ul)
     cartList.appendChild(ul);
 
-    
+
     let cartTotal = document.createElement('div');
     let cartTotalId = document.createAttribute('id');
     cartTotalId.value = "cart-total";
     cartTotal.setAttributeNode(cartTotalId);
-    let cartTotalValue = cartProducts.reduce(function(total, product) {
-        debugger
-        return product.attributes.price + total
-    })
-    
-    cartTotal.innerText = "Total: $ " + cartTotalValue
+    cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
     cartList.appendChild(cartTotal)
 
     let checkout = document.getElementById('checkout')
     checkout.innerText = "CHECKOUT"
+}
+
+function getCartTotal(array){
+    return array.reduce(function(acc, currentValue) {
+        return currentValue + acc
+    })
 }
 
 
