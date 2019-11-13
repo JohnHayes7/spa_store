@@ -70,3 +70,8 @@ body{
     text-align: center;
 }
 
+#cart-total{
+    font-weight: bold;
+    text-align: center;
+}
+
