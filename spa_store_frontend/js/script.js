@@ -291,24 +291,24 @@ function cartDisplay(json){
     cartTotal.setAttributeNode(cartTotalId);
     cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
     cartList.appendChild(cartTotal)
-
-    let checkoutLink = document.createElement('a')
-    let checkoutHref = document.createAttribute('href')
-    checkoutHref.value = "#"
-    checkoutLink.setAttributeNode(checkoutHref)
-    
-    let checkout = document.getElementById('checkout')
-    checkoutLink.innerText = "CHECKOUT"
-    checkout.appendChild(checkoutLink)
-
-    
-
+    addCheckOut()
 }
 
 function addCheckOut(){
 
-    if(array.length > 0){
+    let tester = document.getElementById('checkout-link')
+    if (tester === null){
+        let checkoutLink = document.createElement('a')
+        let checkoutHref = document.createAttribute('href')
+        let checkoutLinkId = document.createAttribute('id')
+        checkoutLinkId.value = "checkout-link"
+        checkoutHref.value = "#"
+        checkoutLink.setAttributeNode(checkoutHref)
+        checkoutLink.setAttributeNode(checkoutLinkId)
         
+        let checkout = document.getElementById('checkout')
+        checkoutLink.innerText = "CHECKOUT"
+        checkout.appendChild(checkoutLink)
     }
 }
 
