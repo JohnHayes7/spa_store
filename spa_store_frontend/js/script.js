@@ -193,7 +193,6 @@ function productDetailsDisplay(object){
 
     btn.addEventListener('click', function(){
         let cartDiv = document.getElementById('cart')
-        debugger
         fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
             method: 'PATCH',
             body: JSON.stringify({
@@ -291,11 +290,11 @@ function cartDisplay(json){
     cartTotal.setAttributeNode(cartTotalId);
     cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
     cartList.appendChild(cartTotal)
+
     addCheckOut()
 }
 
 function addCheckOut(){
-
     let tester = document.getElementById('checkout-link')
     if (tester === null){
         let checkoutLink = document.createElement('a')
