@@ -76,3 +76,9 @@ body{
     text-align: center;
 }
 
+#browser-image-display{
+    left: 10px;
+    height: 200px;
+    width: 550px;
+}
+

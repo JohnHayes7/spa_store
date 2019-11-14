@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let name = json["data"]["attributes"]["name"]
             let vendors = json["included"].filter(event => event["type"] === "vendor")
             let products = json["included"].filter(event => event["type"] === "product")
-            debugger
             store = createStore(name, vendors, products);
             
             let header = document.getElementById("main-head");
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 function addProducts(productsAry){
-    debugger
     let prods = document.getElementById('latest-items-list')
    
     productsAry.forEach(p => { 
@@ -64,8 +62,9 @@ function addProducts(productsAry){
         let pName = p.attributes.name;
         let pDescription = p.attributes.description
         let pPrice = p.attributes.price;
+        let pImgPath = p.attributes.image_path
 
-        let product = createProduct(pId, pName, pDescription, pPrice);
+        let product = createProduct(pId, pName, pDescription, pPrice, pImgPath);
         
         createProductsPreviewElements(product, prods)
         
@@ -99,8 +98,9 @@ function vendorProductsList(products){
         let pName = p.attributes.name;
         let pDescription = p.attributes.description;
         let pPrice = p.attributes.price;
+        let pImgPath = p.attributes.image_path
 
-        let product = createProduct(pId, pName, pDescription, pPrice)
+        let product = createProduct(pId, pName, pDescription, pPrice, pImgPath)
         createProductsPreviewElements(product, ul)
         detailsDiv.appendChild(ul)
         browser.appendChild(detailsDiv);
@@ -124,8 +124,8 @@ function createVendor(id, name, tagline){
     return new Vendor(id, name, tagline);
 }
 
-function createProduct(id, name, description, price){
-    return new Product(id, name, description, price);
+function createProduct(id, name, description, price, imgPath){
+    return new Product(id, name, description, price, imgPath);
 }
 
 function createCart(id, customer_id, products){
@@ -163,7 +163,7 @@ function makeProductClickable(element, object){
 
 function productDetailsDisplay(object){
     let browser = document.getElementById('browse');
-    debugger
+    
     clearWindow(browser);
 
     let browseHead = document.createElement('div')
@@ -173,8 +173,13 @@ function productDetailsDisplay(object){
     let btn = document.createElement('button');
     let addBtn = document.createAttribute('id')
     let prodImage = document.createElement('img');
-    let prodImageSrc = document.createAttribute('src')
-    // prodImageSrc.value = object.image_path
+    let prodImageId = document.createAttribute('id')
+    prodImageId.value = "browser-image-display"
+    prodImage.setAttributeNode(prodImageId)
+    prodImage.src = object.img_path
+    prodImage.alt = object.description
+    
+    
     
     browseHeadId.value = "subAtt"
     browseHead.setAttributeNode(browseHeadId)
@@ -184,6 +189,7 @@ function productDetailsDisplay(object){
         
     browseHead.innerText = object.name
     browser.appendChild(browseHead)
+    browser.appendChild(prodImage)
     details.innerText = `${object.description} \n Price: $${object.price}`
 
     
