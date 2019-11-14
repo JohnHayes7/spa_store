@@ -274,6 +274,7 @@ function cartDisplay(json){
    
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
+    
     prodsPriceArray = []
     cartProducts.forEach(product =>{
         prodsPriceArray.push(product.attributes.price)
@@ -283,16 +284,26 @@ function cartDisplay(json){
     iterateCart(cartProducts, ul)
     cartList.appendChild(ul);
 
+    if(cartProducts.length > 0){
+        let cartTotal = document.createElement('div');
+        let cartTotalId = document.createAttribute('id');
+        cartTotalId.value = "cart-total";
+        cartTotal.setAttributeNode(cartTotalId);
+        cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
+        cartList.appendChild(cartTotal)
+    }
 
-    let cartTotal = document.createElement('div');
-    let cartTotalId = document.createAttribute('id');
-    cartTotalId.value = "cart-total";
-    cartTotal.setAttributeNode(cartTotalId);
-    cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
-    cartList.appendChild(cartTotal)
-
-    addCheckOut()
+    
+    
 }
+
+function removeCheckOut(array){
+    let checkoutLink = document.getElementById('checkout-link')
+    if(array.length === 0){
+        return checkoutLink.remove()
+    }
+}
+
 
 function addCheckOut(){
     let tester = document.getElementById('checkout-link')
@@ -312,9 +323,12 @@ function addCheckOut(){
 }
 
 function getCartTotal(array){
-    return array.reduce(function(acc, currentValue) {
+    if (array.length > 0){
+     return array.reduce(function(acc, currentValue) {
         return currentValue + acc
     })
+    }
+   
 }
 
 
@@ -336,6 +350,8 @@ function iterateCart(array, element){
         li.appendChild(deleteLink)
         element.appendChild(li);
 
+       
+
         deleteLink.addEventListener('click', function(e){
             fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
                 method: 'DELETE',
@@ -351,6 +367,7 @@ function iterateCart(array, element){
             }).then(response => response.json())
             .then(function(json){
                cartDisplay(json)
+               
             })
         })
     })
