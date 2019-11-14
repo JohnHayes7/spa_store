@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let name = json["data"]["attributes"]["name"]
             let vendors = json["included"].filter(event => event["type"] === "vendor")
             let products = json["included"].filter(event => event["type"] === "product")
-            
+            debugger
             store = createStore(name, vendors, products);
             
             let header = document.getElementById("main-head");
@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 function addProducts(productsAry){
+    debugger
     let prods = document.getElementById('latest-items-list')
    
     productsAry.forEach(p => { 
@@ -162,7 +163,7 @@ function makeProductClickable(element, object){
 
 function productDetailsDisplay(object){
     let browser = document.getElementById('browse');
-            
+    debugger
     clearWindow(browser);
 
     let browseHead = document.createElement('div')
@@ -171,6 +172,9 @@ function productDetailsDisplay(object){
     let detailsId = document.createAttribute('id')
     let btn = document.createElement('button');
     let addBtn = document.createAttribute('id')
+    let prodImage = document.createElement('img');
+    let prodImageSrc = document.createAttribute('src')
+    // prodImageSrc.value = object.image_path
     
     browseHeadId.value = "subAtt"
     browseHead.setAttributeNode(browseHeadId)
@@ -346,6 +350,7 @@ function iterateCart(array, element){
         deleteLink.setAttributeNode(deleteLinkId)
         deleteLink.setAttributeNode(deleteLinkHref)
         deleteLink.innerText = " Remove From Cart"
+
         li.innerText = product.attributes.name + " " +"$" + product.attributes.price;
         li.appendChild(deleteLink)
         element.appendChild(li);
