@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             
         });
 
+
     fetch('http://localhost:3000/customers/1').then(function(response){
         return response.json();
     }).then(function(json){
@@ -108,6 +109,8 @@ function vendorProductsList(products){
     divAttr.value = "details";
     detailsDiv.setAttributeNode(divAttr);
     let ul = document.createElement('ul');
+
+    // function parseAndCreateProducts???
     Array.from(products).forEach(p => {
         let pId = p.id;
         let pName = p.attributes.name;
@@ -116,6 +119,7 @@ function vendorProductsList(products){
         let pImgPath = p.attributes.image_path
 
         let product = createProduct(pId, pName, pDescription, pPrice, pImgPath)
+
         createProductsPreviewElements(product, ul)
         detailsDiv.appendChild(ul)
         browser.appendChild(detailsDiv);
@@ -448,7 +452,6 @@ function iterateCart(array, element){
         li.appendChild(deleteLink)
         element.appendChild(li);
 
-       
         removeItems(deleteLink)
         
     })
