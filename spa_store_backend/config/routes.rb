@@ -11,6 +11,8 @@ end
 
 get '/products/:id' => 'products#show'
 
+get 'categories/:id' => 'categories#show'
+
 
 
 end

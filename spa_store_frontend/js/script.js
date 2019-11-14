@@ -90,7 +90,15 @@ function addVendors(vendorsAry){
 }
 
 function addCategories(categoriesAry){
-    
+    let popCatsList = document.getElementById('pop-cats-list')
+    categoriesAry.forEach(c => {
+        let cId = c.id;
+        let cName = c.attributes.name
+
+        let category = createCategory(cId, cName)
+        createCatPreviewElements(category, popCatsList)
+    })
+
 }
 
 
@@ -140,6 +148,10 @@ function createCart(id, customer_id, products){
     return new Cart(id, customer_id, products);
 }
 
+function createCategory(id, name){
+    return new Category (id, name);
+}
+
 
 // PRODUCT HELPER FUNCTIONS
 function createProductsPreviewElements(product, parent){
@@ -160,6 +172,26 @@ function createProductsPreviewElements(product, parent){
     li.appendChild(link)
     makeProductClickable(li, product)
     parent.appendChild(li)
+}
+
+function createCatPreviewElements(category, parent){
+    let li = document.createElement('li');
+    let link = document.createElement('a')
+    let href = document.createAttribute('href')
+    let dataID = document.createAttribute('data-id')
+    let c = document.createAttribute('class');
+
+    dataID.value = category.id
+
+    c.value = "cat-select"
+    href.value = "#"
+    link.innerText = category.name
+    link.setAttributeNode(dataID)
+    link.setAttributeNode(href)
+    link.setAttributeNode(c)
+    li.appendChild(link)
+    // makeProductClickable(li, product)
+    parent.appendChild(li)   
 }
 
 function makeProductClickable(element, object){
@@ -232,8 +264,6 @@ function productDetailsDisplay(object){
 
     })
 
-    
-
 }
 
 
@@ -283,6 +313,21 @@ function fetchVendors(object){
         vendorProductsList(object.products)
 
     })   
+}
+
+function makeCategoryClickable(category, element){
+    element.addEventListener('click', function(e){
+        e.preventDefault()
+        fetchCategories(category);
+    })
+}
+
+function fetchCategories(category){
+    fetch(`http://localhost:3000/categories/${category.id}`).then(function(response){
+        return response.json()
+    }).then(function(json){
+        
+    })
 }
 
 // CART HELPERS
