@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let name = json["data"]["attributes"]["name"]
             let vendors = json["included"].filter(event => event["type"] === "vendor")
             let products = json["included"].filter(event => event["type"] === "product")
-            store = createStore(name, vendors, products);
+            let categories = json["included"].filter(event => event["type"] === "category")
+            debugger
+            store = createStore(name, vendors, products, categories);
             
             let header = document.getElementById("main-head");
             let h1 = document.createElement('h1');
@@ -15,6 +17,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             header.appendChild(h1);
             addVendors(store.vendors)
             addProducts(store.products)
+            addCategories(store.categories)
+            
             
         });
 
@@ -85,6 +89,10 @@ function addVendors(vendorsAry){
     });
 }
 
+function addCategories(categoriesAry){
+    
+}
+
 
 function vendorProductsList(products){
     let browser = document.getElementById('browse');
@@ -112,8 +120,8 @@ function clearWindow(element){
     return element.innerText = ""
 }
 
-function createStore(name, vendors, products){
-    return new Store (name, vendors, products);
+function createStore(name, vendors, products, categories){
+    return new Store (name, vendors, products, categories);
 }
 
 function createCustonmer(id, name, cart){

@@ -11,7 +11,7 @@ class StoresController < ApplicationController
 
     def show
         store = Store.find(params[:id])
-        options = {include:[:vendors, :customers, :products]}
+        options = {include:[:vendors, :customers, :products, :categories]}
         render json: StoreSerializer.new(store, options)
     end
 
