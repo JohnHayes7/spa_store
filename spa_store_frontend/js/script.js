@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let vendors = json["included"].filter(event => event["type"] === "vendor")
             let products = json["included"].filter(event => event["type"] === "product")
             let categories = json["included"].filter(event => event["type"] === "category")
-            debugger
             store = createStore(name, vendors, products, categories);
             
             let header = document.getElementById("main-head");
@@ -123,6 +122,29 @@ function vendorProductsList(products){
     })
 }
 
+function categoryProductsList(products){
+    let browser = document.getElementById('browse');
+    let detailsDiv = document.createElement("div");
+    let divAttr = document.createAttribute("id");
+    divAttr.value = "details";
+    detailsDiv.setAttributeNode(divAttr);
+    let ul = document.createElement('ul');
+
+    Array.from(products).forEach(p => {
+        let pId = p.id;
+        let pName = p.attributes.name;
+        let pDescription = p.attributes.description;
+        let pPrice = p.attributes.price;
+        let pImgPath = p.attributes.image_path
+
+        let product = createProduct(pId, pName, pDescription, pPrice, pImgPath)
+        createProductsPreviewElements(product, ul)
+        detailsDiv.appendChild(ul)
+        browser.appendChild(detailsDiv);
+    })
+
+}
+
 // GENERAL HELPER METHODS
 function clearWindow(element){
     return element.innerText = ""
@@ -190,7 +212,7 @@ function createCatPreviewElements(category, parent){
     link.setAttributeNode(href)
     link.setAttributeNode(c)
     li.appendChild(link)
-    // makeProductClickable(li, product)
+    makeCategoryClickable(li, category)
     parent.appendChild(li)   
 }
 
@@ -315,7 +337,7 @@ function fetchVendors(object){
     })   
 }
 
-function makeCategoryClickable(category, element){
+function makeCategoryClickable(element, category){
     element.addEventListener('click', function(e){
         e.preventDefault()
         fetchCategories(category);
@@ -326,7 +348,19 @@ function fetchCategories(category){
     fetch(`http://localhost:3000/categories/${category.id}`).then(function(response){
         return response.json()
     }).then(function(json){
-        
+        let products = json["included"].filter(event => event["type"] === "product")
+        category.products = products
+        let browser = document.getElementById("browse")
+        let subHead = document.createElement('div')
+        let subAtt = document.createAttribute("id")
+            
+        clearWindow(browser)
+
+        subAtt.value = "subAtt";
+        subHead.setAttributeNode(subAtt);
+        subHead.innerText = `All ${category.name} Products ` 
+        browser.appendChild(subHead)
+        categoryProductsList(category.products)
     })
 }
 
