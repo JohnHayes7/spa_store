@@ -62,17 +62,27 @@ function addCheckOut(){
         let checkout = document.getElementById('checkout')
         checkoutLink.innerText = "CHECKOUT"
         checkout.appendChild(checkoutLink)
+        checkoutAction(checkoutLink)
+
+
     }
+}
+
+function checkoutAction(element){
+    element.addEventListener('click', function(){
+        alert("Thank you for your purchase \nPlease come see us again")
+    })
 }
 
 function getCartTotal(array){
     if (array.length > 0){
-     return array.reduce(function(acc, currentValue) {
-        return currentValue + acc
-    })
+        return array.reduce(function(acc, currentValue) {
+            return currentValue + acc
+        })
     }
    
 }
+
 
 
 function iterateCart(array, element){
