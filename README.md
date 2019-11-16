@@ -1,0 +1,1 @@
+This is a Single page application.  This project builds the basic functions of an online store.  You can view and see information about products, and shop by product, vendor, or category.
