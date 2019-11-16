@@ -4,13 +4,7 @@ function cartDisplay(json){
    
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
-    
-    prodsPriceArray = []
-    cartProducts.forEach(product =>{
-        prodsPriceArray.push(product.attributes.price)
-    })
-    
-    
+     
     iterateCart(cartProducts, ul)
     cartList.appendChild(ul);
 
@@ -19,13 +13,18 @@ function cartDisplay(json){
         let cartTotalId = document.createAttribute('id');
         cartTotalId.value = "cart-total";
         cartTotal.setAttributeNode(cartTotalId);
-        cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
+        cartTotal.innerText = "Total: $ " + getCartTotal(getPrices(cartProducts))
         cartList.appendChild(cartTotal)
         addCheckOut()
     }
+}
 
-    
-    
+function getPrices(products){
+    prodsPriceArray = []
+    products.forEach(product =>{
+        prodsPriceArray.push(product.attributes.price)
+    })
+    return prodsPriceArray
 }
 
 function cartIsEmpty(array){
@@ -51,21 +50,23 @@ function removeCheckOut(){
 function addCheckOut(){
     let tester = document.getElementById('checkout-link')
     if (tester === null){
-        let checkoutLink = document.createElement('a')
-        let checkoutHref = document.createAttribute('href')
-        let checkoutLinkId = document.createAttribute('id')
-        checkoutLinkId.value = "checkout-link"
-        checkoutHref.value = "#"
-        checkoutLink.setAttributeNode(checkoutHref)
-        checkoutLink.setAttributeNode(checkoutLinkId)
-        
-        let checkout = document.getElementById('checkout')
-        checkoutLink.innerText = "CHECKOUT"
-        checkout.appendChild(checkoutLink)
-        checkoutAction(checkoutLink)
-
-
+        createCheckoutLink()
     }
+}
+
+function createCheckoutLink(){
+    let checkoutLink = document.createElement('a')
+    let checkoutHref = document.createAttribute('href')
+    let checkoutLinkId = document.createAttribute('id')
+    checkoutLinkId.value = "checkout-link"
+    checkoutHref.value = "#"
+    checkoutLink.setAttributeNode(checkoutHref)
+    checkoutLink.setAttributeNode(checkoutLinkId)
+    
+    let checkout = document.getElementById('checkout')
+    checkoutLink.innerText = "CHECKOUT"
+    checkout.appendChild(checkoutLink)
+    checkoutAction(checkoutLink)
 }
 
 function checkoutAction(element){
@@ -89,25 +90,34 @@ function iterateCart(array, element){
     array.forEach(product => {
         let li = document.createElement('li');
         let deleteLink = document.createElement('a')
-        let deleteLinkId = document.createAttribute('id')
-        let deleteLinkHref = document.createAttribute('href')
-        let deleteLinkData = document.createAttribute('data-id')
-        deleteLinkData.value = product.id 
-        deleteLinkHref.value = "#"
-        deleteLinkId.value = "delete-link"
-        deleteLink.setAttributeNode(deleteLinkData)
-        deleteLink.setAttributeNode(deleteLinkId)
-        deleteLink.setAttributeNode(deleteLinkHref)
-        deleteLink.innerText = " Remove From Cart"
 
         li.innerText = product.attributes.name + " " +"$" + product.attributes.price;
-        li.appendChild(deleteLink)
+        
+        createRemoveLink(li, product, deleteLink)
         element.appendChild(li);
 
         removeItems(deleteLink)
-        
     })
 }
+
+function createRemoveLink(parent, obj, link){
+    
+    let deleteLinkId = document.createAttribute('id')
+    let deleteLinkHref = document.createAttribute('href')
+    let deleteLinkData = document.createAttribute('data-id')
+
+    deleteLinkData.value = obj.id;
+
+    deleteLinkHref.value = "#"
+    deleteLinkId.value = "delete-link"
+    link.setAttributeNode(deleteLinkData)
+    link.setAttributeNode(deleteLinkId)
+    link.setAttributeNode(deleteLinkHref)
+    link.innerText = " Remove From Cart"
+
+    parent.appendChild(link)
+}
+
 
 function removeItems(link){
     link.addEventListener('click', function(e){
