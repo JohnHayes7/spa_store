@@ -14,24 +14,37 @@ function cartDisplay(json){
     iterateCart(cartProducts, ul)
     cartList.appendChild(ul);
 
-    if(cartProducts.length > 0){
+    if(!cartIsEmpty(cartProducts)){
         let cartTotal = document.createElement('div');
         let cartTotalId = document.createAttribute('id');
         cartTotalId.value = "cart-total";
         cartTotal.setAttributeNode(cartTotalId);
         cartTotal.innerText = "Total: $ " + getCartTotal(prodsPriceArray)
         cartList.appendChild(cartTotal)
+        addCheckOut()
     }
 
     
     
 }
 
-function removeCheckOut(array){
-    let checkoutLink = document.getElementById('checkout-link')
+function cartIsEmpty(array){
     if(array.length === 0){
-        return checkoutLink.remove()
+        let cartDiv = document.getElementById('cart')
+        let cartList = document.getElementById('cart-list')
+        cartList.innerText = "Your cart is currently empty"
+        cartDiv.appendChild(cartList)
+        removeCheckOut()
+        return true
     }
+}
+
+function removeCheckOut(){
+    let checkoutLink = document.getElementById('checkout-link')
+    if(checkoutLink){
+        checkoutLink.remove()
+    }
+       
 }
 
 

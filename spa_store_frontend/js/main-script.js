@@ -35,18 +35,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         
         let welcomeMess = document.getElementById('welcome')
         welcomeMess.innerText = "Welcome, " + currentCustomer.name
-        let cartDiv = document.getElementById('cart')
-        let cartList = document.getElementById('cart-list')
-    
-        if (cart.products.length === 0){
-            cartList.innerText = "Your cart is currently empty"
-            cartDiv.appendChild(cartList)
-        }else{
+
+        if(!cartIsEmpty(cart.products)){
             fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`).then(response => response.json())
             .then(function(json){
                 cartDisplay(json)
+                addCheckOut()
             })
-        }  
+        }
     });
 
     let browser = document.getElementById('details')
