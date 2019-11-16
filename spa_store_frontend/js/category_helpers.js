@@ -7,10 +7,7 @@ function addCategories(categoriesAry){
         let category = createCategory(cId, cName)
         createCatPreviewElements(category, popCatsList)
     })
-
 }
-
-
 
 
 function categoryProductsList(products){

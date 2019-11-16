@@ -1,6 +1,6 @@
 function cartDisplay(json){
     let cartList = document.getElementById('cart-list')
-    cartList.innerText = ""
+    clearWindow(cartList)
    
     let ul = document.createElement('ul')
     let cartProducts = json.included.filter(event => event["type"] === "product")
