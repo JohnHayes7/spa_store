@@ -1,4 +1,4 @@
-let currentCustomer = ""
+let currentCustomer = {}
 
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch('http://localhost:3000/stores/2').then(function(response){
