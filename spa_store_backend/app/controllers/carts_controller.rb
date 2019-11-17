@@ -29,12 +29,20 @@ class CartsController < ApplicationController
         end
 
         def destroy
-            cart = Cart.find(params[:cart_id])
-            product = Product.find(params[:product_id])
-            cart.products.delete(product)
-            cart.save
-            options = {include: [:customer, :products]}
-            render json: CartSerializer.new(cart, options)
+            if params[:product_id]
+                cart = Cart.find(params[:cart_id])
+                product = Product.find(params[:product_id])
+                cart.products.delete(product)
+                cart.save
+                options = {include: [:customer, :products]}
+                render json: CartSerializer.new(cart, options)
+            else
+                cart = Cart.find(params[:cart_id])
+                cart.products.destroy_all
+                cart.save
+                options = {include: [:customer, :products]}
+                render json: CartSerializer.new(cart, options)
+            end
             
         end
 

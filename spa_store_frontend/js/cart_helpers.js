@@ -70,8 +70,12 @@ function createCheckoutLink(){
 }
 
 function checkoutAction(element){
-    element.addEventListener('click', function(){
+    element.addEventListener('click', function(e){
+        
+        e.preventDefault()
+        clearCart()
         alert("Thank you for your purchase \nPlease come see us again")
+        
     })
 }
 
@@ -121,6 +125,7 @@ function createRemoveLink(parent, obj, link){
 
 function removeItems(link){
     link.addEventListener('click', function(e){
+        e.preventDefault()
         fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
             method: 'DELETE',
             body: JSON.stringify({
@@ -138,5 +143,22 @@ function removeItems(link){
            
         })
     })
+}
 
+function clearCart(){
+    fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+            cart_id: currentCustomer.cart.id,
+            completed: true
+        }),
+        headers: {
+            "Content-type": "application/json", 
+            "Accept": 'application/json' 
+        }
+    }).then(response => response.json())
+    .then(function(json){
+        cartDisplay(json)
+    })
+    
 }
