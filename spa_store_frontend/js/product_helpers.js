@@ -1,7 +1,6 @@
 function addProducts(productsAry){
     let prods = document.getElementById('latest-items-list')
-   
-    productsAry.forEach(p => { 
+    productsAry.reverse().forEach(p => { 
         let pId = p.id   
         let pName = p.attributes.name;
         let pDescription = p.attributes.description
