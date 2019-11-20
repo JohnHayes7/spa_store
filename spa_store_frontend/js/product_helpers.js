@@ -1,6 +1,50 @@
 function addProducts(productsAry){
+    
     let prods = document.getElementById('latest-items-list')
-    productsAry.reverse().forEach(p => { 
+    prods.innerHTML = ""
+    let sortBtn = document.createElement('button')
+    sortBtn.innerText = "Sort Alphabetically"
+    let window = document.getElementById("latest")
+    let sort = document.createAttribute("id")
+    sort.value = "sort-btn"
+    sortBtn.setAttributeNode(sort)
+    prods.appendChild(sortBtn)
+
+    sortBtn.addEventListener('click', function(){
+        fetch('http://localhost:3000/stores/2/products').then(response => response.json())
+        .then(function(json){
+            json.data.sort(function(a, b) {
+                var nameA = a.attributes.name.toUpperCase(); // ignore upper and lowercase
+                var nameB = b.attributes.name.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                  return -1;
+                }
+                if (nameA > nameB) {
+                  return 1;
+                }
+              
+                // names must be equal
+                return 0;
+              });
+            
+            addProducts(json.data)
+
+            //   json.data.forEach(p => {
+            //     let pId = p.id   
+            //     let pName = p.attributes.name;
+            //     let pDescription = p.attributes.description
+            //     let pPrice = p.attributes.price;
+            //     let pImgPath = p.attributes.image_path
+        
+            //     let product = createProduct(pId, pName, pDescription, pPrice, pImgPath);
+            //     createProductsPreviewElements(product, prods)
+            //   })
+            //   console.log(json.data)
+
+            //  createProductsPreviewElements()
+        })
+    })
+    productsAry.forEach(p => { 
         let pId = p.id   
         let pName = p.attributes.name;
         let pDescription = p.attributes.description
@@ -8,7 +52,7 @@ function addProducts(productsAry){
         let pImgPath = p.attributes.image_path
 
         let product = createProduct(pId, pName, pDescription, pPrice, pImgPath);
-        
+        // prods.innerHTML = ""
         createProductsPreviewElements(product, prods)
         
     })
@@ -32,6 +76,8 @@ function createProductsPreviewElements(product, parent){
     li.appendChild(link)
     makeProductClickable(li, product)
     parent.appendChild(li)
+
+
 }
 
 function makeProductClickable(element, object){

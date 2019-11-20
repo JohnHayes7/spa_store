@@ -1,5 +1,11 @@
 class ProductsController < ApplicationController
 
+    def index
+        prods = Product.all
+        options = {include:[:vendor, :categories, :carts, :customers]}
+        render json: ProductSerializer.new(prods, options)
+    end
+
     def create
 
     end

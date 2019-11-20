@@ -26,19 +26,19 @@ body{
 
 #latest{
     flex: 0 0 31.8%;
-    height: 150px;
+    height: 170px;
     border: burlywood 1px solid;
 }
 
 #top-vendors{
     flex: 1; 
-    height: 150px;
+    height: 170px;
     border: burlywood 1px solid;
 }
 
 #pop-cats{
     flex: 1;
-    height: 150px;
+    height: 170px;
     border: burlywood 1px solid;
 
 }
