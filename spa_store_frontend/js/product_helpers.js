@@ -96,8 +96,7 @@ function productDetailsDisplay(object){
     let browseHeadId = document.createAttribute('id');
     let details = document.createElement('div')
     let detailsId = document.createAttribute('id')
-    let btn = document.createElement('button');
-    let addBtn = document.createAttribute('id')
+    
     let prodImage = document.createElement('img');
     let prodImageId = document.createAttribute('id')
     prodImageId.value = "browser-image-display"
@@ -117,14 +116,14 @@ function productDetailsDisplay(object){
     browser.appendChild(browseHead)
     browser.appendChild(prodImage)
     details.innerText = `${object.description} \n Price: $${object.price}`
+    browser.appendChild(details)
 
-    
+
+    let btn = document.createElement('button');
+    let addBtn = document.createAttribute('id')
     addBtn.value = "add-button"
     btn.setAttributeNode(addBtn)
     btn.innerText = "Add to Cart"
-    
-
-    browser.appendChild(details)
     browser.appendChild(btn)
 
     btn.addEventListener('click', function(){

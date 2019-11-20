@@ -4,4 +4,8 @@ class Cart{
         this.customer_id = customer_id
         this.products = products
     }
+
+    clearCart(){
+        
+    }
 }
