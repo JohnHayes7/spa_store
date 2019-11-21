@@ -60,22 +60,22 @@ function makeVendorClickable(object, element){
 
 function fetchVendors(object){
     fetch(`http://localhost:3000/vendors/${object.id}`).then(function(response){
+               
         return response.json()
-    }).then(function(json){
-        let products = json["included"].filter(event => event["type"] === "product")
+        }).then(function(json){
+            let products = json["included"].filter(event => event["type"] === "product")
+            object.products = products
+            let browser = document.getElementById("browse")
+            let subHead = document.createElement('div')
+            let subAtt = document.createAttribute("id")
+                
+            clearWindow(browser)
+    
+            subAtt.value = "subAtt";
+            subHead.setAttributeNode(subAtt);
+            subHead.innerText = `All Products from ${object.name} \n ${object.tagline} ` 
+            browser.appendChild(subHead)
+            vendorProductsList(object.products)
             
-        object.products = products
-        let browser = document.getElementById("browse")
-        let subHead = document.createElement('div')
-        let subAtt = document.createAttribute("id")
-            
-        clearWindow(browser)
-
-        subAtt.value = "subAtt";
-        subHead.setAttributeNode(subAtt);
-        subHead.innerText = `All Products from ${object.name} \n ${object.tagline} ` 
-        browser.appendChild(subHead)
-        vendorProductsList(object.products)
-
-    })   
-}
+        })   
+    }

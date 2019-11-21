@@ -5,4 +5,5 @@ class Vendor{
         this.tagline = tagline
         this.products = []
     }
+        
 }
