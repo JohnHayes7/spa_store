@@ -5,7 +5,7 @@ function addCategories(categoriesAry){
         let cName = c.attributes.name
 
         let category = createCategory(cId, cName)
-        createCatPreviewElements(category, popCatsList)
+        category.createPreviewElements(popCatsList)
     })
 }
 
@@ -31,26 +31,6 @@ function categoryProductsList(products){
         browser.appendChild(detailsDiv);
     })
 
-}
-
-function createCatPreviewElements(category, parent){
-    let li = document.createElement('li');
-    let link = document.createElement('a')
-    let href = document.createAttribute('href')
-    let dataID = document.createAttribute('data-id')
-    let c = document.createAttribute('class');
-
-    dataID.value = category.id
-
-    c.value = "cat-select"
-    href.value = "#"
-    link.innerText = category.name
-    link.setAttributeNode(dataID)
-    link.setAttributeNode(href)
-    link.setAttributeNode(c)
-    li.appendChild(link)
-    makeCategoryClickable(li, category)
-    parent.appendChild(li)   
 }
 
 function makeCategoryClickable(element, category){
