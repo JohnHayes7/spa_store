@@ -1,7 +1,7 @@
 let currentCustomer = {}
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch('http://localhost:3000/stores/2').then(function(response){
+    fetch('http://localhost:3000/stores/1').then(function(response){
         return response.json();
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
