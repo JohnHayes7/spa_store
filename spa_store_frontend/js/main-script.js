@@ -1,7 +1,7 @@
 let currentCustomer = {}
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch('https://spa-store-app.herokuapp.com//stores/1').then(function(response){
+    fetch('https://spa-store-app.herokuapp.com/stores/1').then(function(response){
         return response.json();
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
