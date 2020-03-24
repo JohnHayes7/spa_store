@@ -1,7 +1,7 @@
 let currentCustomer = {}
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch('http://localhost:3000/stores/1').then(function(response){
+    fetch('postgres://ybfdznixhoezrm:60ea5b64a6704a4c3a764cee0db8d5f76a0ddfa91ecdab0207a35bc4e11eea3e@ec2-18-209-187-54.compute-1.amazonaws.com:5432/d933abcalsjehf/stores/1').then(function(response){
         return response.json();
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
