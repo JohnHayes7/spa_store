@@ -5,6 +5,7 @@ resources :stores do
   resources :products, only:[:index]
 end
 
+get '/' => 'stores#index'
 
 get '/vendors/:id' => 'vendors#show'
 
