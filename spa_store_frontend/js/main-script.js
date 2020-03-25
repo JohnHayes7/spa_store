@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
 
-    fetch('http://localhost:3000/customers/1').then(function(response){
+    fetch('https://guarded-taiga-12857.herokuapp.com/customers/1').then(function(response){
         return response.json();
     }).then(function(json){
         
