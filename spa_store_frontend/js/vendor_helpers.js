@@ -75,7 +75,7 @@ function fetchVendors(object){
     
             subAtt.value = "subAtt";
             subHead.setAttributeNode(subAtt);
-            subHead.innerText = `All Products from ${object.name} \n ${object.tagline} ` 
+            subHead.innerText = `All Products from ${object.name} \n "${object.tagline}" ` 
             browser.appendChild(subHead)
             vendorProductsList(object.products)
             
