@@ -1,7 +1,8 @@
+const API = 'https://guarded-taiga-12857.herokuapp.com'
 let currentCustomer = {}
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch('https://guarded-taiga-12857.herokuapp.com/stores/1').then(function(response){
+    fetch(API + '/stores/1').then(function(response){
         return response.json();
         }).then(function(json){
             let name = json["data"]["attributes"]["name"]
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
 
-    fetch('https://guarded-taiga-12857.herokuapp.com/customers/1').then(function(response){
+    fetch(API + '/customers/1').then(function(response){
         return response.json();
     }).then(function(json){
         
