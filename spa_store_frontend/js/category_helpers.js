@@ -1,4 +1,4 @@
-const API = 'https://guarded-taiga-12857.herokuapp.com'
+const CATHELPAPI = 'https://guarded-taiga-12857.herokuapp.com'
 
 
 function addCategories(categoriesAry){
@@ -44,7 +44,7 @@ function makeCategoryClickable(element, category){
 }
 
 function fetchCategories(category){
-    fetch(API + `/categories/${category.id}`).then(function(response){
+    fetch(CATHELPAPI + `/categories/${category.id}`).then(function(response){
         return response.json()
     }).then(function(json){
         let products = json["included"].filter(event => event["type"] === "product")

@@ -1,4 +1,4 @@
-const API = 'https://guarded-taiga-12857.herokuapp.com'
+const CARTHELPAPI = 'https://guarded-taiga-12857.herokuapp.com'
 
 function cartDisplay(json){
     let cartList = document.getElementById('cart-list')
@@ -128,7 +128,7 @@ function createRemoveLink(parent, obj, link){
 function removeItems(link){
     link.addEventListener('click', function(e){
         e.preventDefault()
-        fetch(API + `/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
+        fetch(CARTHELPAPI + `/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
             method: 'DELETE',
             body: JSON.stringify({
                 cart_id: currentCustomer.cart.id,
@@ -148,7 +148,7 @@ function removeItems(link){
 }
 
 function clearCart(){
-    fetch(API + `/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`, {
+    fetch(CARTHELPAPI + `/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`, {
         method: 'DELETE',
         body: JSON.stringify({
             cart_id: currentCustomer.cart.id,
