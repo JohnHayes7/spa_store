@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         welcomeMess.innerText = "Welcome, " + currentCustomer.name
 
         if(!cartIsEmpty(cart.products)){
-            fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`).then(response => response.json())
+            fetch(API + `/${currentCustomer.id}/carts/${currentCustomer.cart.id}`).then(response => response.json())
             .then(function(json){
                 cartDisplay(json)
                 addCheckOut()
