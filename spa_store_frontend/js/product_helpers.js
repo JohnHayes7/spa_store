@@ -1,3 +1,5 @@
+const API = 'https://guarded-taiga-12857.herokuapp.com'
+
 function addProducts(productsAry){
     
     let prods = document.getElementById('latest-items-list')
@@ -11,7 +13,7 @@ function addProducts(productsAry){
     prods.appendChild(sortBtn)
 
     sortBtn.addEventListener('click', function(){
-        fetch('http://localhost:3000/stores/2/products').then(response => response.json())
+        fetch(API + '/stores/1/products').then(response => response.json())
         .then(function(json){
             json.data.sort(function(a, b) {
                 var nameA = a.attributes.name.toUpperCase(); // ignore upper and lowercase
@@ -128,7 +130,7 @@ function productDetailsDisplay(object){
 
     btn.addEventListener('click', function(){
         let cartDiv = document.getElementById('cart')
-        fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
+        fetch(API + `/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`,{
             method: 'PATCH',
             body: JSON.stringify({
                 cart_id: currentCustomer.cart.id,

@@ -1,3 +1,6 @@
+const API = 'https://guarded-taiga-12857.herokuapp.com'
+
+
 function addCategories(categoriesAry){
     let popCatsList = document.getElementById('pop-cats-list')
     categoriesAry.forEach(c => {
@@ -41,7 +44,7 @@ function makeCategoryClickable(element, category){
 }
 
 function fetchCategories(category){
-    fetch(`http://localhost:3000/categories/${category.id}`).then(function(response){
+    fetch(API + `/categories/${category.id}`).then(function(response){
         return response.json()
     }).then(function(json){
         let products = json["included"].filter(event => event["type"] === "product")

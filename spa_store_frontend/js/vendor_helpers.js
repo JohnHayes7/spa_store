@@ -1,3 +1,5 @@
+const API = 'https://guarded-taiga-12857.herokuapp.com'
+
 function addVendors(vendorsAry){
     let topVs = document.getElementById('top-vendors-list') 
     vendorsAry.forEach(v => {
@@ -59,7 +61,7 @@ function makeVendorClickable(object, element){
 }
 
 function fetchVendors(object){
-    fetch(`http://localhost:3000/vendors/${object.id}`).then(function(response){
+    fetch(API + `/vendors/${object.id}`).then(function(response){
                
         return response.json()
         }).then(function(json){
