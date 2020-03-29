@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             let categories = json["included"].filter(event => event["type"] === "category")
             store = createStore(name, vendors, products, categories);
             
-            let header = document.getElementById("main-head");
+            let storeName = document.getElementById("store-name");
             let h1 = document.createElement('h1');
             h1.innerText = "Welcome to " + store.name;
-            header.appendChild(h1);
+            storeName.appendChild(h1);
             addVendors(store.vendors)
             addProducts(store.products)
             addCategories(store.categories)
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         currentCustomer = createCustonmer(custId, custName, cart)
         
         let welcomeMess = document.getElementById('welcome')
-        welcomeMess.innerText = "Welcome, " + currentCustomer.name
+        welcomeMess.innerText = "Welcome back, " +  currentCustomer.name
 
         if(!cartIsEmpty(cart.products)){
             fetch(`http://localhost:3000/customers/${currentCustomer.id}/carts/${currentCustomer.cart.id}`).then(response => response.json())
